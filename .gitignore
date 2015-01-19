@@ -1,0 +1,11 @@
+.metadata
+/sysProps.xml
+/.idea
+/bin
+/build
+/dist
+
+*.class
+#*.jar
+*.war
+*.ear
