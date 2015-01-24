@@ -5,6 +5,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.Joystick;
+
 import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
 import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
 
@@ -17,8 +22,15 @@ import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static OI oi;
+    public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+
+    public static Jaguar motor1;
+    public static Jaguar motor2;
+    public static Jaguar motor3;
+    public static Jaguar motor4;
+    public static RobotDrive robotDrive;
+    public static Joystick joystick;
+    public static OI oi;
 
     Command autonomousCommand;
 
@@ -27,14 +39,27 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
+        oi = new OI();
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        // autonomousCommand = new ExampleCommand();
+
+        motor1 = new Jaguar(RobotMap.driveMotorLFPort);   // Left Front
+        motor2 = new Jaguar(RobotMap.driveMotorLRPort);   // Left Rear
+        motor3 = new Jaguar(RobotMap.driveMotorRFPort);   // Right Front
+        motor4 = new Jaguar(RobotMap.driveMotorRRPort);   // Right Rear
+
+        robotDrive = new RobotDrive(motor1, motor2, motor3, motor4);
+        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+        robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+
+        joystick = new Joystick(RobotMap.driveStickPort);
     }
-	
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
+
+    public void disabledPeriodic() {
+        Scheduler.getInstance().run();
+    }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
@@ -49,8 +74,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
+        // This makes sure that the autonomous stops running when
+        // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
@@ -61,7 +86,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+        robotDrive.stopMotor();
     }
 
     /**
@@ -69,8 +94,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+
+        robotDrive.arcadeDrive(joystick);
     }
-    
+
     /**
      * This function is called periodically during test mode
      */
