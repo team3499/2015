@@ -62,11 +62,15 @@ public class RobotMap {
     // Joystick port assignments from Drive Station
     public static int driveStickPort = JOY0;
 
-    // Drive motor PWM assignments
+    // Drive motor PWM assignments (Jaguar)
     public static int driveMotorLFPort = PWM2;
     public static int driveMotorLRPort = PWM3;
     public static int driveMotorRFPort = PWM4;
     public static int driveMotorRRPort = PWM5;
+    
+    // Drive motor CAN assignments (TalonSRX)
+    public static int tDriveMotorLPort = 1;
+    public static int tDriveMotorRPort = 2;
     
     // LED output
     public static int ledPort = DIO0;
