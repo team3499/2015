@@ -20,11 +20,12 @@ public class OI {
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
 	public static Joystick joystick = new Joystick(RobotMap.driveStickPort);
-	Button button4 = new JoystickButton(joystick, 4);
+	public static Button button1 = new JoystickButton(joystick, 1);
 	
 	public OI() {
-		button4.whileHeld(new LEDCommand());
+		button1.whileHeld(new LEDCommand());
 	}
+	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.
