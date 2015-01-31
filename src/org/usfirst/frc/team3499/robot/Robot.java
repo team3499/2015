@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        //robotDrive.arcadeDrive(OI.joystick);
+        robotDrive.arcadeDrive(OI.joystick);
     }
 
     /**
