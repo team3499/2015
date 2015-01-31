@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot {
         robotDrive.arcadeDrive(OI.joystick);
         
         // Robot drive with TalonSRXs
-        tRobotDrive.arcadeDrive(OI.joystick);
+        //tRobotDrive.arcadeDrive(OI.joystick);
     }
 
     /**
