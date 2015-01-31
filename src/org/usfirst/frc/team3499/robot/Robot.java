@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
-//import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
-import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team3499.robot.commands.*;
+import org.usfirst.frc.team3499.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,7 +21,8 @@ import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-    public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+    public static LEDSubsystem ledSubsystem;
+    public static LEDCommand ledCommand;
 
     public static Jaguar motor1;
     public static Jaguar motor2;
@@ -37,9 +38,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        oi = new OI();
         // instantiate the command used for the autonomous period
         // autonomousCommand = new ExampleCommand();
+        ledSubsystem = new LEDSubsystem();
+        ledCommand = new LEDCommand();
+        oi = new OI();
 
         motor1 = new Jaguar(RobotMap.driveMotorLFPort);   // Left Front
         motor2 = new Jaguar(RobotMap.driveMotorLRPort);   // Left Rear
