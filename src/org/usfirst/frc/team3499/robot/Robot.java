@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.Joystick;
 
-import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
+//import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
 import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -29,7 +28,6 @@ public class Robot extends IterativeRobot {
     public static Jaguar motor3;
     public static Jaguar motor4;
     public static RobotDrive robotDrive;
-    public static Joystick joystick;
     public static OI oi;
 
     Command autonomousCommand;
@@ -53,8 +51,6 @@ public class Robot extends IterativeRobot {
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
         robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-
-        joystick = new Joystick(RobotMap.driveStickPort);
     }
 
     public void disabledPeriodic() {
@@ -95,7 +91,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        robotDrive.arcadeDrive(joystick);
+        robotDrive.arcadeDrive(OI.joystick);
     }
 
     /**
