@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 
 import org.usfirst.frc.team3499.robot.commands.*;
-//import org.usfirst.frc.team3499.robot.Robot;
-
-//import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,21 +16,16 @@ public class OI {
     // number it is.
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
+	
+	// Instantiate joystick and button (trigger button)
 	public static Joystick joystick = new Joystick(RobotMap.driveStickPort);
 	public static Button button1 = new JoystickButton(joystick, 1);
-	
+
 	public OI() {
+		// turns on LED when pushed, turns off when let up
 		button1.whileHeld(new LEDCommand());
 	}
-	
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
+	   
     // Start the command when the button is pressed and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenPressed(new ExampleCommand());
