@@ -68,4 +68,8 @@ public class RobotMap {
     public static int driveMotorRFPort = PWM4;
     public static int driveMotorRRPort = PWM5;
 
+    // Tote proximity sensor assignements
+    public static int toteProximitySensorNearPort = DIO0;
+    public static int toteProximitySensorFarPort  = DIO1;
+
 }
