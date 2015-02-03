@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
 
 import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
+import org.usfirst.frc.team3499.robot.commands.DisplayLightshowCommand;
 import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team3499.robot.subsystems.LightshowSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +25,7 @@ import org.usfirst.frc.team3499.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot {
 
     public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+    public static final LightshowSubsystem lightshowSubsystem = new LightshowSubsystem();
 
     public static Jaguar motor1;
     public static Jaguar motor2;
@@ -64,6 +67,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+
+        new DisplayLightshowCommand(LightshowSubsystem.Pattern.AUTONOMOUS).start();
     }
 
     /**
