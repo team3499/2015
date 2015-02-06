@@ -1,7 +1,12 @@
 package org.usfirst.frc.team3499.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+import org.usfirst.frc.team3499.robot.commands.DisplayLightshowCommand;
+import org.usfirst.frc.team3499.robot.subsystems.LightshowSubsystem;
+import org.usfirst.frc.team3499.robot.Robot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,5 +39,17 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+
+    public OI() {
+        // Test lightshow PWM settings by attaching each lightshow to a button
+        new JoystickButton(Robot.joystick, 2).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.BLACKOUT));
+        new JoystickButton(Robot.joystick, 3).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_NONE));
+        new JoystickButton(Robot.joystick, 4).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_LEFT));
+        new JoystickButton(Robot.joystick, 5).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_RIGHT));
+        new JoystickButton(Robot.joystick, 6).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_BOTH));
+        new JoystickButton(Robot.joystick, 7).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.AUTONOMOUS));
+        new JoystickButton(Robot.joystick, 8).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.CAMERA));
+    }
+
 }
 
