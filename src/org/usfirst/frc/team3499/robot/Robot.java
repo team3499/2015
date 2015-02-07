@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
@@ -26,7 +27,8 @@ public class Robot extends IterativeRobot {
     public static LEDCommand ledCommand;
 
     public static TalonSubsystem talonSubsystem;
-    public static TalonCommand talonCommand;
+    public static TalonCommand talonCommand1;
+    public static TalonCommand talonCommand2;
     
     public static Jaguar motor1;
     public static Jaguar motor2;
@@ -36,6 +38,8 @@ public class Robot extends IterativeRobot {
     public static OI oi;
 
     Command autonomousCommand;
+    
+    CameraServer server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -44,10 +48,15 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         // autonomousCommand = new ExampleCommand();
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam1");
         ledSubsystem = new LEDSubsystem();
         ledCommand = new LEDCommand();
         talonSubsystem = new TalonSubsystem();
-        talonCommand = new TalonCommand();
+        talonCommand1 = new TalonCommand();
+        talonCommand2 = new TalonCommand();
         oi = new OI();
 
         motor1 = new Jaguar(RobotMap.driveMotorLFPort);   // Left Front
@@ -60,8 +69,6 @@ public class Robot extends IterativeRobot {
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
         robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-        
-        talonCommand= new TalonCommand();
     }
 
     public void disabledPeriodic() {
@@ -104,9 +111,8 @@ public class Robot extends IterativeRobot {
     	//System.out.println(OI.joystick.getAxis(AxisType.kZ));
         //robotDrive.arcadeDrive(OI.joystick);
 		//System.out.println(OI.joystick.getAxis(AxisType.kZ));
-        talonCommand.tSpeed=OI.joystick.getAxis(AxisType.kZ);
-        
-		OI.button1.whileHeld(talonCommand);//new TalonCommand(OI.joystick.getAxis(AxisType.kZ)));
+        talonCommand1.settSpeed(OI.joystick.getAxis(AxisType.kZ));
+		OI.button1.whileHeld(talonCommand1);//new TalonCommand(OI.joystick.getAxis(AxisType.kZ)));
     }
 
     /**

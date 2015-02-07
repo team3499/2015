@@ -19,6 +19,7 @@ public class OI {
     // Button button = new JoystickButton(stick, buttonNumber);
 	public static Joystick joystick = new Joystick(RobotMap.driveStickPort);
 	public static Button button1 = new JoystickButton(joystick, 1);
+	public static Button button3 = new JoystickButton(joystick, 3);
 	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to

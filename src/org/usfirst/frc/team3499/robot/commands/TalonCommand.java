@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TalonCommand extends Command {
 	
-	public double tSpeed = 0.0;
+	private double tSpeed = 0.0;
 	
     public TalonCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -21,17 +21,17 @@ public class TalonCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.talonSubsystem);
-    	this.tSpeed = speed;
+    	this.settSpeed(speed);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.talonSubsystem.move(tSpeed);
+    	Robot.talonSubsystem.move(gettSpeed());
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.talonSubsystem.move(tSpeed);
+    	Robot.talonSubsystem.move(gettSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -49,4 +49,16 @@ public class TalonCommand extends Command {
     protected void interrupted() {
     	Robot.talonSubsystem.move(0);
     }
+
+	public double gettSpeed() {
+		return tSpeed;
+	}
+
+	public void settSpeed(double tSpeed) {
+		this.tSpeed = tSpeed;
+	}
+	
+	public void showSpeed() {
+		Robot.talonSubsystem.getSpeed();
+	}
 }

@@ -27,5 +27,9 @@ public class TalonSubsystem extends Subsystem {
     	tSpeed = speed;
     	talonMotor.set(tSpeed);
     }
+    
+    public void getSpeed(){
+    	System.out.println(talonMotor.getEncVelocity());
+    }
 }
 
