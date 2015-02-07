@@ -68,7 +68,11 @@ public class RobotMap {
     public static int driveMotorRFPort = PWM4;
     public static int driveMotorRRPort = PWM5;
     
+    // TalonSRX assignment
+    public static int tMotor1 = 50;
+    
     // LED output
     public static int ledPort = DIO0;
+    
 
 }

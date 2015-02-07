@@ -2,8 +2,6 @@ package org.usfirst.frc.team3499.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
-
-import org.usfirst.frc.team3499.robot.commands.*;
 //import org.usfirst.frc.team3499.robot.Robot;
 
 //import org.usfirst.frc.team3499.robot.commands.ExampleCommand;
@@ -21,10 +19,6 @@ public class OI {
     // Button button = new JoystickButton(stick, buttonNumber);
 	public static Joystick joystick = new Joystick(RobotMap.driveStickPort);
 	public static Button button1 = new JoystickButton(joystick, 1);
-	
-	public OI() {
-		button1.whileHeld(new LEDCommand());
-	}
 	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 import org.usfirst.frc.team3499.robot.commands.*;
@@ -24,6 +25,9 @@ public class Robot extends IterativeRobot {
     public static LEDSubsystem ledSubsystem;
     public static LEDCommand ledCommand;
 
+    public static TalonSubsystem talonSubsystem;
+    public static TalonCommand talonCommand;
+    
     public static Jaguar motor1;
     public static Jaguar motor2;
     public static Jaguar motor3;
@@ -42,6 +46,8 @@ public class Robot extends IterativeRobot {
         // autonomousCommand = new ExampleCommand();
         ledSubsystem = new LEDSubsystem();
         ledCommand = new LEDCommand();
+        talonSubsystem = new TalonSubsystem();
+        talonCommand = new TalonCommand();
         oi = new OI();
 
         motor1 = new Jaguar(RobotMap.driveMotorLFPort);   // Left Front
@@ -54,6 +60,8 @@ public class Robot extends IterativeRobot {
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
         robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+        
+        talonCommand= new TalonCommand();
     }
 
     public void disabledPeriodic() {
@@ -93,8 +101,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-
-        robotDrive.arcadeDrive(OI.joystick);
+    	//System.out.println(OI.joystick.getAxis(AxisType.kZ));
+        //robotDrive.arcadeDrive(OI.joystick);
+		//System.out.println(OI.joystick.getAxis(AxisType.kZ));
+        talonCommand.tSpeed=OI.joystick.getAxis(AxisType.kZ);
+        
+		OI.button1.whileHeld(talonCommand);//new TalonCommand(OI.joystick.getAxis(AxisType.kZ)));
     }
 
     /**
