@@ -61,6 +61,7 @@ public class RobotMap {
 
     // Joystick port assignments from Drive Station
     public static int driveStickPort = JOY0;
+    public static int liftStickPort = JOY1;
 
     // Drive motor PWM assignments
     public static int driveMotorLFPort = PWM2;

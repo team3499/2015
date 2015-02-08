@@ -5,11 +5,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+//import edu.wpi.first.wpilibj.CameraServer;
+//import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.Joystick.AxisType;
+//import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+
 
 import org.usfirst.frc.team3499.robot.commands.*;
 import org.usfirst.frc.team3499.robot.subsystems.*;
@@ -27,19 +29,18 @@ public class Robot extends IterativeRobot {
     public static LEDCommand ledCommand;
 
     public static TalonSubsystem talonSubsystem;
-    public static TalonCommand talonCommand1;
-    public static TalonCommand talonCommand2;
+    public static TalonCommand talonCommandUp, talonCommandDown;
     
-    public static Jaguar motor1;
-    public static Jaguar motor2;
-    public static Jaguar motor3;
-    public static Jaguar motor4;
-    public static RobotDrive robotDrive;
+    public static DriveSubsystem driveSubsystem;
+    public static DriveCommand driveCommandMax;
+    public static DriveCommand driveCommandCrawl;
+    public static DriveCommand driveCommandInput;
+    
     public static OI oi;
 
     Command autonomousCommand;
     
-    CameraServer server;
+    // CameraServer server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -48,27 +49,25 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         // autonomousCommand = new ExampleCommand();
-        server = CameraServer.getInstance();
-        server.setQuality(50);
+        // server = CameraServer.getInstance();
+        /// server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
-        server.startAutomaticCapture("cam1");
+        // server.startAutomaticCapture("cam1");
+    	
         ledSubsystem = new LEDSubsystem();
         ledCommand = new LEDCommand();
+        
         talonSubsystem = new TalonSubsystem();
-        talonCommand1 = new TalonCommand();
-        talonCommand2 = new TalonCommand();
+        talonCommandUp = new TalonCommand();
+        talonCommandDown = new TalonCommand();
+        
+        driveSubsystem = new DriveSubsystem();
+        driveCommandMax = new DriveCommand();
+        driveCommandCrawl = new DriveCommand();
+        driveCommandInput = new DriveCommand();
+        
         oi = new OI();
 
-        motor1 = new Jaguar(RobotMap.driveMotorLFPort);   // Left Front
-        motor2 = new Jaguar(RobotMap.driveMotorLRPort);   // Left Rear
-        motor3 = new Jaguar(RobotMap.driveMotorRFPort);   // Right Front
-        motor4 = new Jaguar(RobotMap.driveMotorRRPort);   // Right Rear
-
-        robotDrive = new RobotDrive(motor1, motor2, motor3, motor4);
-        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
-        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
-        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-        robotDrive.setInvertedMotor(MotorType.kRearRight, true);
     }
 
     public void disabledPeriodic() {
@@ -93,6 +92,10 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        driveCommandMax.setDriveSpeed(1.0);
+        driveCommandCrawl.setDriveSpeed(0.1);
+        talonCommandUp.settSpeed(0.2);
+        talonCommandDown.settSpeed(-0.2);
     }
 
     /**
@@ -100,7 +103,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-        robotDrive.stopMotor();
+    	
     }
 
     /**
@@ -108,11 +111,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-    	//System.out.println(OI.joystick.getAxis(AxisType.kZ));
-        //robotDrive.arcadeDrive(OI.joystick);
-		//System.out.println(OI.joystick.getAxis(AxisType.kZ));
-        talonCommand1.settSpeed(OI.joystick.getAxis(AxisType.kZ));
-		OI.button1.whileHeld(talonCommand1);//new TalonCommand(OI.joystick.getAxis(AxisType.kZ)));
+        driveCommandInput.setDriveSpeed(OI.dJoystick.getAxis(AxisType.kZ));
+		OI.dButton1.whileHeld(driveCommandCrawl);
+		OI.lButton2.whileHeld(talonCommandUp);//new TalonCommand(OI.joystick.getAxis(AxisType.kZ)));
+		OI.lButton3.whileHeld(talonCommandDown);
     }
 
     /**
