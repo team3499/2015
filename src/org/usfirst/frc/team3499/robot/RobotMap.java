@@ -72,8 +72,5 @@ public class RobotMap {
     // TalonSRX assignment
     public static int tMotor1 = 50;
     
-    // LED output
-    public static int ledPort = DIO0;
-    
 
 }

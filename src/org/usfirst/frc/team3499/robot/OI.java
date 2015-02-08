@@ -22,6 +22,7 @@ public class OI {
 	public static Button dButton2 = new JoystickButton(dJoystick, 2);
 	
 	public static Joystick lJoystick = new Joystick(RobotMap.liftStickPort);
+	public static Button lButton1 = new JoystickButton(lJoystick, 1);
 	public static Button lButton2 = new JoystickButton(lJoystick, 2);
 	public static Button lButton3 = new JoystickButton(lJoystick, 3);
 	

@@ -16,23 +16,23 @@ public class DriveSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     Jaguar motor1 = new Jaguar(RobotMap.driveMotorLFPort);  
-    Jaguar motor2 = new Jaguar(RobotMap.driveMotorLFPort);
-    Jaguar motor3 = new Jaguar(RobotMap.driveMotorLFPort);
-    Jaguar motor4 = new Jaguar(RobotMap.driveMotorLFPort);
+    Jaguar motor2 = new Jaguar(RobotMap.driveMotorLRPort);
+    Jaguar motor3 = new Jaguar(RobotMap.driveMotorRFPort);
+    Jaguar motor4 = new Jaguar(RobotMap.driveMotorRRPort);
 
     RobotDrive robotDrive = new RobotDrive(motor1, motor2, motor3, motor4);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void startDrive(double maxSpeed) {
         robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
         robotDrive.setInvertedMotor(MotorType.kRearRight, true);
         robotDrive.arcadeDrive(OI.dJoystick);
-    }
-    
-    public void startDrive(double maxSpeed) {
     	robotDrive.setMaxOutput(maxSpeed);
     }
     
