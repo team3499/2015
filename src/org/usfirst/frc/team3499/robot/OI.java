@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team3499.robot.commands.DisplayLightshowCommand;
-import org.usfirst.frc.team3499.robot.subsystems.LightshowSubsystem;
+import org.usfirst.frc.team3499.robot.commands.UpdateEventLightsCommand;
+import org.usfirst.frc.team3499.robot.subsystems.EventLightsSubsystem;
 import org.usfirst.frc.team3499.robot.Robot;
 
 /**
@@ -42,13 +42,13 @@ public class OI {
 
     public OI() {
         // Test lightshow PWM settings by attaching each lightshow to a button
-        new JoystickButton(Robot.joystick, 2).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.BLACKOUT));
-        new JoystickButton(Robot.joystick, 3).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_NONE));
-        new JoystickButton(Robot.joystick, 4).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_LEFT));
-        new JoystickButton(Robot.joystick, 5).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_RIGHT));
-        new JoystickButton(Robot.joystick, 6).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.RAMP_BOTH));
-        new JoystickButton(Robot.joystick, 7).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.AUTONOMOUS));
-        new JoystickButton(Robot.joystick, 8).whenPressed(new DisplayLightshowCommand(LightshowSubsystem.Pattern.CAMERA));
+        new JoystickButton(Robot.joystick, 2).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.OFF));
+        new JoystickButton(Robot.joystick, 3).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL));
+        new JoystickButton(Robot.joystick, 4).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.FULL));
+        new JoystickButton(Robot.joystick, 5).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.OFF));
+        new JoystickButton(Robot.joystick, 6).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.FULL));
+        new JoystickButton(Robot.joystick, 7).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.OFF));
+        new JoystickButton(Robot.joystick, 8).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.FULL));
     }
 
 }
