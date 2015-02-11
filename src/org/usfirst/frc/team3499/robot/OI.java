@@ -39,16 +39,26 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+    public static Joystick joystick = new Joystick(RobotMap.driveStickPort);
+
+    public static Button button1 = new JoystickButton(joystick, 1);
+    public static Button button2 = new JoystickButton(joystick, 2);
+    public static Button button3 = new JoystickButton(joystick, 3);
+    public static Button button4 = new JoystickButton(joystick, 4);
+    public static Button button5 = new JoystickButton(joystick, 5);
+    public static Button button6 = new JoystickButton(joystick, 6);
+    public static Button button7 = new JoystickButton(joystick, 7);
+    public static Button button8 = new JoystickButton(joystick, 8);
 
     public OI() {
         // Test lightshow PWM settings by attaching each lightshow to a button
-        new JoystickButton(Robot.joystick, 2).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.OFF));
-        new JoystickButton(Robot.joystick, 3).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL));
-        new JoystickButton(Robot.joystick, 4).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.FULL));
-        new JoystickButton(Robot.joystick, 5).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.OFF));
-        new JoystickButton(Robot.joystick, 6).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.FULL));
-        new JoystickButton(Robot.joystick, 7).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.OFF));
-        new JoystickButton(Robot.joystick, 8).whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.FULL));
+        button2.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.OFF));
+        button3.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL));
+        button4.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.FULL));
+        button5.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.OFF));
+        button6.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_LEFT, Robot.SensorState.FULL));
+        button7.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.OFF));
+        button8.whenPressed(new UpdateEventLightsCommand(Robot.Sensor.RAMP_RIGHT, Robot.SensorState.FULL));
     }
 
 }
