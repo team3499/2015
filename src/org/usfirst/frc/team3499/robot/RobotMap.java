@@ -72,6 +72,10 @@ public class RobotMap {
     // TalonSRX assignment
     public static int tMotor1 = 50;
 
+    // Tote proximity sensor assignements
+    public static int toteProximitySensorNearPort = DIO0;
+    public static int toteProximitySensorFarPort  = DIO1;
+
     // LED Arduino
     public static int ledArduinoPort = PWM9;
 
