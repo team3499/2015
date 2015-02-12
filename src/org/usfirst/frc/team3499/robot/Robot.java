@@ -31,6 +31,8 @@ public class Robot extends IterativeRobot {
     public static DriveCommand driveCommandMax, driveCommandCrawl, driveCommandInput;
 
     public static EventLightsSubsystem eventLightsSubsystem = new EventLightsSubsystem();
+    public static ToteProximitySubsystem toteProximitySubsystem = new ToteProximitySubsystem();
+    public static RampProximitySubsystem rampProximitySubsystem = new RampProximitySubsystem();
 
     public static OI oi;
 

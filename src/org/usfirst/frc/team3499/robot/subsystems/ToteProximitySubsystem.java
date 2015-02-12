@@ -3,6 +3,7 @@ package org.usfirst.frc.team3499.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 
+import org.usfirst.frc.team3499.robot.commands.DetectToteCommand;
 import org.usfirst.frc.team3499.robot.RobotMap;
 
 /**
@@ -17,7 +18,7 @@ public class ToteProximitySubsystem extends Subsystem {
     public enum Location { NONE, NEAR, FAR, BOTH }
 
     public void initDefaultCommand() {
-
+        new DetectToteCommand();
     }
 
     public Location get() {
