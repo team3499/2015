@@ -61,6 +61,7 @@ public class RobotMap {
 
     // Joystick port assignments from Drive Station
     public static int driveStickPort = JOY0;
+    public static int liftStickPort = JOY1;
 
     // Drive motor PWM assignments
     public static int driveMotorLFPort = PWM2;
@@ -68,8 +69,14 @@ public class RobotMap {
     public static int driveMotorRFPort = PWM4;
     public static int driveMotorRRPort = PWM5;
 
+    // TalonSRX assignment
+    public static int tMotor1 = 50;
+
     // Tote proximity sensor assignements
     public static int toteProximitySensorNearPort = DIO0;
     public static int toteProximitySensorFarPort  = DIO1;
+
+    // LED Arduino
+    public static int ledArduinoPort = PWM9;
 
 }
