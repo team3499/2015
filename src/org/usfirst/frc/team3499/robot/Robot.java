@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
 //import edu.wpi.first.wpilibj.Joystick.AxisType;
 //import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
-
 import org.usfirst.frc.team3499.robot.commands.*;
 import org.usfirst.frc.team3499.robot.subsystems.*;
 
@@ -27,15 +26,29 @@ public class Robot extends IterativeRobot {
 
     public static TalonSubsystem talonSubsystem;
     public static TalonCommand talonCommandUp, talonCommandDown, talonCommandUpMax, talonCommandDownMax;
-    
+
     public static DriveSubsystem driveSubsystem;
     public static DriveCommand driveCommandMax, driveCommandCrawl, driveCommandInput;
-    
+
+    public static EventLightsSubsystem eventLightsSubsystem = new EventLightsSubsystem();
+
     public static OI oi;
 
     Command autonomousCommand;
-    
+
     // CameraServer server;
+
+    public enum Sensor {
+        TOTE,
+        RAMP_LEFT,
+        RAMP_RIGHT;
+    };
+
+    public enum SensorState {
+        OFF,
+        PARTIAL,
+        FULL;
+    };
 
     /**
      * This function is run when the robot is first started up and should be
@@ -48,18 +61,18 @@ public class Robot extends IterativeRobot {
         /// server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         // server.startAutomaticCapture("cam1");
-        
+
         talonSubsystem = new TalonSubsystem();
         talonCommandUp = new TalonCommand();
         talonCommandDown = new TalonCommand();
         talonCommandUpMax = new TalonCommand();
         talonCommandDownMax = new TalonCommand();
-        
+
         driveSubsystem = new DriveSubsystem();
         driveCommandMax = new DriveCommand();
         driveCommandCrawl = new DriveCommand();
         driveCommandInput = new DriveCommand();
-        
+
         oi = new OI();
 
     }
@@ -88,7 +101,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         driveCommandMax.setDriveSpeed(1.0);
         driveCommandCrawl.setDriveSpeed(0.1);
-        
+
         talonCommandUp.settSpeed(0.2);
         talonCommandDown.settSpeed(-0.2);
     }
@@ -98,7 +111,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-    	
+
     }
 
     /**
@@ -107,13 +120,13 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         driveCommandInput.setDriveSpeed((-(OI.dJoystick.getAxis(AxisType.kZ)) + 1.1) / 2.2);
-		OI.dButton1.whileHeld(driveCommandCrawl);
-		OI.dButton1.whenReleased(driveCommandInput);
-		OI.dButton2.whileHeld(driveCommandMax);
-		OI.dButton2.whenReleased(driveCommandInput);
-			
-		OI.lButton2.whileHeld(talonCommandUp);
-		OI.lButton3.whileHeld(talonCommandDown);
+        OI.dButton1.whileHeld(driveCommandCrawl);
+        OI.dButton1.whenReleased(driveCommandInput);
+        OI.dButton2.whileHeld(driveCommandMax);
+        OI.dButton2.whenReleased(driveCommandInput);
+
+        OI.lButton2.whileHeld(talonCommandUp);
+        OI.lButton3.whileHeld(talonCommandDown);
     }
 
     /**
