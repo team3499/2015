@@ -6,11 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
-//import edu.wpi.first.wpilibj.CameraServer;
-//import edu.wpi.first.wpilibj.Jaguar;
-//import edu.wpi.first.wpilibj.RobotDrive;
-//import edu.wpi.first.wpilibj.Joystick.AxisType;
-//import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.*;
 
 import org.usfirst.frc.team3499.robot.commands.*;
 import org.usfirst.frc.team3499.robot.subsystems.*;
@@ -37,6 +35,9 @@ public class Robot extends IterativeRobot {
     public static OI oi;
 
     Command autonomousCommand;
+    
+    int session;
+    Image frame;
 
     // CameraServer server;
 
@@ -63,7 +64,13 @@ public class Robot extends IterativeRobot {
         /// server.setQuality(50);
         //the camera name (ex "cam0") can be found through the roborio web interface
         // server.startAutomaticCapture("cam1");
+    	
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
+        // the camera name (ex "cam0") can be found through the roborio web interface
+        session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(session);
+    	
         talonSubsystem = new TalonSubsystem();
         talonCommandUp = new TalonCommand();
         talonCommandDown = new TalonCommand();
@@ -90,6 +97,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        NIVision.IMAQdxStartAcquisition(session);
     }
 
     /**
@@ -97,6 +105,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        //NIVision.IMAQdxGrab(session, frame, 1);
     }
 
     public void teleopInit() {
@@ -107,7 +116,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         driveCommandMax.setDriveSpeed(1.0);
         driveCommandCrawl.setDriveSpeed(0.1);
-
+        driveCommandInput.setDriveSpeed((-(OI.dJoystick.getAxis(AxisType.kZ)) + 1.1) / 2.2);
+        
         talonCommandUp.settSpeed(0.2);
         talonCommandDown.settSpeed(-0.2);
     }
@@ -125,14 +135,41 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        driveCommandInput.setDriveSpeed((-(OI.dJoystick.getAxis(AxisType.kZ)) + 1.1) / 2.2);
         OI.dButton1.whileHeld(driveCommandCrawl);
-        OI.dButton1.whenReleased(driveCommandInput);
         OI.dButton2.whileHeld(driveCommandMax);
+        
+        OI.dButton1.whenReleased(driveCommandInput);
         OI.dButton2.whenReleased(driveCommandInput);
 
         OI.lButton2.whileHeld(talonCommandUp);
         OI.lButton3.whileHeld(talonCommandDown);
+        
+        while (driveCommandCrawl.isRunning()) {
+    		do {
+    			driveCommandCrawl.setDriveSpeed(driveCommandCrawl.getDriveSpeed() - 0.05);
+    		} while (driveCommandCrawl.getDriveSpeed() > 0.1);
+        	driveCommandInput.setDriveSpeed(driveCommandCrawl.getDriveSpeed());
+        };
+        while (driveCommandMax.isRunning()) {
+        		do {
+        			driveCommandMax.setDriveSpeed(driveCommandMax.getDriveSpeed() + 0.05);
+        		} while (driveCommandMax.getDriveSpeed() < 1.0);
+        	driveCommandInput.setDriveSpeed(driveCommandMax.getDriveSpeed());
+        };
+        while (driveCommandInput.isRunning()) {
+        	if (driveCommandInput.getDriveSpeed() == 1.0) {
+        		do {
+        			driveCommandInput.setDriveSpeed(driveCommandInput.getDriveSpeed() - 0.05);
+        		} while (driveCommandInput.getDriveSpeed() > ((-(OI.dJoystick.getAxis(AxisType.kZ)) + 1.1) / 2.2));
+        	};
+        	if (driveCommandInput.getDriveSpeed() == 0.1) {
+        		do {
+        			driveCommandInput.setDriveSpeed(driveCommandInput.getDriveSpeed() + 0.05);
+        		} while (driveCommandInput.getDriveSpeed() < ((-(OI.dJoystick.getAxis(AxisType.kZ)) + 1.1) / 2.2));
+        	};
+        	driveCommandMax.setDriveSpeed(driveCommandInput.getDriveSpeed());
+        	driveCommandCrawl.setDriveSpeed(driveCommandInput.getDriveSpeed());
+        };
     }
 
     /**
