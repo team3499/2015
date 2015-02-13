@@ -30,9 +30,9 @@ public class Robot extends IterativeRobot {
     public static DriveSubsystem driveSubsystem;
     public static DriveCommand driveCommandMax, driveCommandCrawl, driveCommandInput;
 
-    public static EventLightsSubsystem eventLightsSubsystem = new EventLightsSubsystem();
-    public static ToteProximitySubsystem toteProximitySubsystem = new ToteProximitySubsystem();
-    public static RampProximitySubsystem rampProximitySubsystem = new RampProximitySubsystem();
+    public static EventLightsSubsystem eventLightsSubsystem;
+    public static ToteProximitySubsystem toteProximitySubsystem;
+    public static RampProximitySubsystem rampProximitySubsystem;
 
     public static OI oi;
 
@@ -74,6 +74,10 @@ public class Robot extends IterativeRobot {
         driveCommandMax = new DriveCommand();
         driveCommandCrawl = new DriveCommand();
         driveCommandInput = new DriveCommand();
+        
+        eventLightsSubsystem = new EventLightsSubsystem();
+        toteProximitySubsystem = new ToteProximitySubsystem();
+        rampProximitySubsystem = new RampProximitySubsystem();
 
         oi = new OI();
 

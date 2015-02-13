@@ -3,9 +3,9 @@ package org.usfirst.frc.team3499.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 
-import org.usfirst.frc.team3499.robot.commands.*;
-import org.usfirst.frc.team3499.robot.subsystems.*;
-import org.usfirst.frc.team3499.robot.Robot;
+//import org.usfirst.frc.team3499.robot.commands.*;
+//import org.usfirst.frc.team3499.robot.subsystems.*;
+//import org.usfirst.frc.team3499.robot.Robot;
 
 /**
  * This class is the glue that binds the controls on the physical operator

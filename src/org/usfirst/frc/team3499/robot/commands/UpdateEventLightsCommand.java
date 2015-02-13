@@ -15,7 +15,7 @@ public class UpdateEventLightsCommand extends Command {
     private Robot.Sensor      sensor;
     private Robot.SensorState state;
 
-    private UpdateEventLightsCommand() {
+    public UpdateEventLightsCommand() {
         requires(Robot.eventLightsSubsystem);
     }
 
