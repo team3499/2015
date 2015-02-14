@@ -8,30 +8,30 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class TalonCommand extends Command {
-	
-	private double tSpeed = 0.0;
-	
+
+    private double tSpeed = 0.0;
+
     public TalonCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.talonSubsystem);
+        requires(Robot.talonSubsystem);
     }
 
     public TalonCommand(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.talonSubsystem);
-    	this.settSpeed(speed);
+        requires(Robot.talonSubsystem);
+        this.settSpeed(speed);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.talonSubsystem.move(gettSpeed());
+        Robot.talonSubsystem.move(gettSpeed());
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.talonSubsystem.move(gettSpeed());
+        Robot.talonSubsystem.move(gettSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -41,24 +41,24 @@ public class TalonCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.talonSubsystem.move(0);
+        Robot.talonSubsystem.move(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.talonSubsystem.move(0);
+        Robot.talonSubsystem.move(0);
     }
 
-	public double gettSpeed() {
-		return tSpeed;
-	}
+    public double gettSpeed() {
+        return tSpeed;
+    }
 
-	public void settSpeed(double tSpeed) {
-		this.tSpeed = tSpeed;
-	}
-	
-	public void showSpeed() {
-		Robot.talonSubsystem.getSpeed();
-	}
+    public void settSpeed(double tSpeed) {
+        this.tSpeed = tSpeed;
+    }
+
+    public void showSpeed() {
+        Robot.talonSubsystem.getSpeed();
+    }
 }
