@@ -14,6 +14,7 @@ import org.usfirst.frc.team3499.robot.Drive.Mode;
 public class OI {
 
     public static Joystick driveStick = new Joystick(RobotMap.driveStickPort);
+    public static Joystick liftStick  = new Joystick(RobotMap.liftStickPort);
 
     public static Button driveCrawlButton = new JoystickButton(driveStick, RobotMap.TRIGGER);
     public static Button driveRampLButton = new JoystickButton(driveStick, RobotMap.HAT4);
@@ -47,6 +48,14 @@ public class OI {
 
     public static boolean isRampRightEnable() {
         return driveRampRButton.get();
+    }
+
+    public static double getLiftMove() {
+        return liftStick.getY();
+    }
+
+    public static double getLiftScale() {
+        return (-liftStick.getZ() + 1.5) / 2.5;    // invert and scale Z axis to 0.2 - 1.0
     }
 
     //// CREATING BUTTONS
