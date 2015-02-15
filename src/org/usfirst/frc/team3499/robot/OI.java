@@ -16,7 +16,8 @@ public class OI {
     public static Joystick driveStick = new Joystick(RobotMap.driveStickPort);
 
     public static Button driveCrawlButton = new JoystickButton(driveStick, RobotMap.TRIGGER);
-
+    public static Button driveRawLButton   = new JoystickButton(driveStick, RobotMap.BASE6);
+    public static Button driveRawRButton   = new JoystickButton(driveStick, RobotMap.BASE11);
 
     public static double getDriveMove() {
         return driveStick.getY();
@@ -27,9 +28,14 @@ public class OI {
     }
 
     public static Mode getDriveMode() {
+        if (driveRawLButton.get() || driveRawRButton.get()) { return Mode.RAW; }
         if (driveCrawlButton.get()) { return Mode.CRAWL; }
 
         return Mode.NORMAL;
+    }
+
+    public static double getDriveScale() {
+        return (-driveStick.getZ() + 1.5) / 2.5;   // invert and scale Z axis to 0.2 - 1.0
     }
 
     //// CREATING BUTTONS

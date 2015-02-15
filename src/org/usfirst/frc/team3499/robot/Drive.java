@@ -19,7 +19,7 @@ public class Drive extends RobotDrive {
     };
 
     public static Mode mode = Mode.NORMAL;
-    public static double crawlPercent = 0.3;     // percentage of full speed
+    public static double crawlPercent = 0.2;     // percentage of full speed
     public static double rampThrottle = 0.02;    // max change per 10ms
     private static Timer timer = new Timer();
 
@@ -40,9 +40,11 @@ public class Drive extends RobotDrive {
 
         switch (mode) {
             case NORMAL:
+                leftOutput  = leftOutput * OI.getDriveScale();
+                rightOutput = rightOutput * OI.getDriveScale();
                 break;
             case CRAWL:
-                leftOutput = leftOutput * crawlPercent;
+                leftOutput  = leftOutput * crawlPercent;
                 rightOutput = rightOutput * crawlPercent;
                 break;
             case RAMP:
