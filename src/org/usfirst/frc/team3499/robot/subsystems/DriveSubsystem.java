@@ -1,43 +1,69 @@
 package org.usfirst.frc.team3499.robot.subsystems;
 
-import org.usfirst.frc.team3499.robot.OI;
-import org.usfirst.frc.team3499.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Jaguar;
+
+import org.usfirst.frc.team3499.robot.RobotMap;
+import org.usfirst.frc.team3499.robot.Drive;
+import org.usfirst.frc.team3499.robot.Drive.Mode;
+import org.usfirst.frc.team3499.robot.commands.DriveTeleopCommand;
 
 /**
- *
+ *  The drive motor subsystem -- 4 Jaguar motor controllers under PWM
+ *  control ganged in twos on each side of the chassis.
  */
 public class DriveSubsystem extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    Jaguar motor1 = new Jaguar(RobotMap.driveMotorLFPort);
-    Jaguar motor2 = new Jaguar(RobotMap.driveMotorLRPort);
-    Jaguar motor3 = new Jaguar(RobotMap.driveMotorRFPort);
-    Jaguar motor4 = new Jaguar(RobotMap.driveMotorRRPort);
+    Jaguar[] motors = { new Jaguar(RobotMap.driveMotorLFPort),
+                        new Jaguar(RobotMap.driveMotorLRPort),
+                        new Jaguar(RobotMap.driveMotorRFPort),
+                        new Jaguar(RobotMap.driveMotorRRPort) };
 
-    RobotDrive robotDrive = new RobotDrive(motor1, motor2, motor3, motor4);
+    private Drive drive = new Drive(motors[0], motors[1], motors[2], motors[3]);
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new DriveTeleopCommand());
     }
 
-    public void startDrive(double maxSpeed) {
-        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
-        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
-        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-        robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-        robotDrive.arcadeDrive(OI.dJoystick);
-        robotDrive.setMaxOutput(maxSpeed);
+    public void init() {
+        for (Jaguar motor : motors) { init(motor); }
     }
 
-    public void stopMotor() {
-        robotDrive.stopMotor();
+    public void enable() {
+        for (Jaguar motor : motors) { enable(motor); }
+    }
+
+    private void init(Jaguar motor) {
+        enable(motor);
+        motor.set(0.0);
+    }
+
+    private void enable(Jaguar motor) {
+        motor.Feed();   // motor.enableControl();
+        motor.setSafetyEnabled(true);
+        motor.setExpiration(0.100);
+    }
+
+    public Drive.Mode getMode() {
+        return drive.mode;
+    }
+
+    public void setMode(Mode mode) {
+        drive.mode = mode;
+    }
+
+    public void set(double move, double rotate) {
+        drive.arcadeDrive(move, rotate);
+    }
+
+    public void set(double move, double rotate, Mode mode) {
+        drive.mode = mode;
+        set(move, rotate);
+    }
+
+    public void stop() {
+        drive.stopMotor();
     }
 }
 
