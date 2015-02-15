@@ -48,7 +48,10 @@ public class Drive extends RobotDrive {
                 rightOutput = rightOutput * crawlPercent;
                 break;
             case RAMP:
-                // TODO
+                if (OI.isRampRightEnable()) { rightOutput = 0.0; }
+                else if (OI.isRampLeftEnable()) { leftOutput  = 0.0; }
+                leftOutput  = leftOutput * crawlPercent;
+                rightOutput = rightOutput * crawlPercent;
                 break;
             case RAW:
                 updateRampSample(leftOutput, rightOutput);
