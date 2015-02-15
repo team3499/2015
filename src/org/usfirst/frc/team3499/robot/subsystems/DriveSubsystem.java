@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 
 import org.usfirst.frc.team3499.robot.RobotMap;
+import org.usfirst.frc.team3499.robot.Drive;
+import org.usfirst.frc.team3499.robot.Drive.Mode;
 import org.usfirst.frc.team3499.robot.commands.DriveTeleopCommand;
 
 /**
@@ -18,7 +20,14 @@ public class DriveSubsystem extends Subsystem {
     // Jaguar motor3 = new Jaguar(RobotMap.driveMotorRFPort);
     // Jaguar motor4 = new Jaguar(RobotMap.driveMotorRRPort);
 
+    // drive_simple START
     private CANTalon motor1 = new CANTalon(RobotMap.liftMotorCanId);
+    private CANTalon motor2 = new CANTalon(RobotMap.liftMotorCanId + 1);
+    private CANTalon motor3 = new CANTalon(RobotMap.liftMotorCanId + 2);
+    private CANTalon motor4 = new CANTalon(RobotMap.liftMotorCanId + 3);
+    // drive_simple END
+
+    private Drive drive = new Drive(motor1, motor2, motor3, motor4);
 
     public void initDefaultCommand() {
         setDefaultCommand(new DriveTeleopCommand());
@@ -34,18 +43,25 @@ public class DriveSubsystem extends Subsystem {
         // drive_simple END
     }
 
-    public void set(double left, double right) {
-        motor1.set(left);
-        // motor2.set(left);
-        // motor3.set(right);
-        // motor4.set(right);
+    public Drive.Mode getMode() {
+        return drive.mode;
+    }
+
+    public void setMode(Mode mode) {
+        drive.mode = mode;
+    }
+
+    public void set(double move, double rotate) {
+        drive.arcadeDrive(move, rotate);
+    }
+
+    public void set(double move, double rotate, Mode mode) {
+        drive.mode = mode;
+        set(move, rotate);
     }
 
     public void stop() {
-        motor1.stopMotor();
-        // motor2.stopMotor();
-        // motor3.stopMotor();
-        // motor4.stopMotor();
+        drive.stopMotor();
     }
 }
 

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team3499.robot.Robot;
 import org.usfirst.frc.team3499.robot.OI;
+import org.usfirst.frc.team3499.robot.Drive.Mode;
 
 /**
  * The default command for the DriveSubsystem.
@@ -23,9 +24,10 @@ public class DriveTeleopCommand extends Command {
     }
 
     protected void execute() {
-        double x = OI.driveStick.getX();
-        double y = OI.driveStick.getY();
-        Robot.driveSubsystem.set(y, y);
+        double move   = OI.getDriveMove();
+        double rotate = OI.getDriveRotate();
+        Mode   mode   = OI.getDriveMode();
+        Robot.driveSubsystem.set(move, rotate, mode);
     }
 
     protected boolean isFinished() {

@@ -57,6 +57,19 @@ public class RobotMap {
     public static int JOY6 = 6;
     public static int JOY7 = 7;
 
+    // Joystick buttons
+    public static int TRIGGER = 1;
+    public static int HAT2    = 2;
+    public static int HAT3    = 3;
+    public static int HAT4    = 4;
+    public static int HAT5    = 5;
+    public static int BASE6   = 6;
+    public static int BASE7   = 7;
+    public static int BASE8   = 8;
+    public static int BASE9   = 9;
+    public static int BASE10  = 10;
+    public static int BASE11  = 11;
+
     ////////////////////////////////////////////////////////////
 
     // Joystick port assignments from Drive Station

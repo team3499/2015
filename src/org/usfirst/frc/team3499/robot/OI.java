@@ -1,8 +1,11 @@
 package org.usfirst.frc.team3499.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team3499.robot.RobotMap;
+import org.usfirst.frc.team3499.robot.Drive.Mode;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -11,6 +14,23 @@ import org.usfirst.frc.team3499.robot.RobotMap;
 public class OI {
 
     public static Joystick driveStick = new Joystick(RobotMap.driveStickPort);
+
+    public static Button driveCrawlButton = new JoystickButton(driveStick, RobotMap.TRIGGER);
+
+
+    public static double getDriveMove() {
+        return driveStick.getY();
+    }
+
+    public static double getDriveRotate() {
+        return driveStick.getX();
+    }
+
+    public static Mode getDriveMode() {
+        if (driveCrawlButton.get()) { return Mode.CRAWL; }
+
+        return Mode.NORMAL;
+    }
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
