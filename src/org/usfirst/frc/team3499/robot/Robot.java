@@ -20,6 +20,7 @@ public class Robot extends IterativeRobot {
 
     // Robot Subsystems
     public static DriveSubsystem         driveSubsystem;
+    public static LiftSubsystem          liftSubsystem;
     public static EventLightsSubsystem   eventLightsSubsystem;
     public static ToteProximitySubsystem toteProximitySubsystem;
     public static RampProximitySubsystem rampProximitySubsystem;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         // autonomousCommand = new ExampleCommand();
         driveSubsystem         = new DriveSubsystem();
+        liftSubsystem          = new LiftSubsystem();
         eventLightsSubsystem   = new EventLightsSubsystem();
         toteProximitySubsystem = new ToteProximitySubsystem();
         rampProximitySubsystem = new RampProximitySubsystem();
@@ -86,6 +88,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 
         driveSubsystem.init();
+        liftSubsystem.init();
     }
 
     /**
@@ -94,6 +97,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
         driveSubsystem.stop();
+        liftSubsystem.stop();
     }
 
     /**
