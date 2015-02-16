@@ -23,11 +23,11 @@ public class OI {
     public static Button driveRawRButton  = new JoystickButton(driveStick, RobotMap.BASE11);
 
     public static double getDriveMove() {
-        return driveStick.getY();
+        return -driveStick.getY();
     }
 
     public static double getDriveRotate() {
-        return driveStick.getX();
+        return -driveStick.getX();
     }
 
     public static Mode getDriveMode() {

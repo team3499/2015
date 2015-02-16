@@ -59,10 +59,10 @@ public class Metrics {
     }
 
     public static void readDrive() {
-        driveMotorPercent[0] = Robot.driveSubsystem.getMotorPWM(0) * -100.0;
-        driveMotorPercent[1] = Robot.driveSubsystem.getMotorPWM(1) * -100.0;
-        driveMotorPercent[2] = Robot.driveSubsystem.getMotorPWM(2) * 100.0;
-        driveMotorPercent[3] = Robot.driveSubsystem.getMotorPWM(3) * 100.0;
+        driveMotorPercent[0] = Robot.driveSubsystem.getMotorPWM(0) * 100.0;
+        driveMotorPercent[1] = Robot.driveSubsystem.getMotorPWM(1) * 100.0;
+        driveMotorPercent[2] = Robot.driveSubsystem.getMotorPWM(2) * -100.0;
+        driveMotorPercent[3] = Robot.driveSubsystem.getMotorPWM(3) * -100.0;
         driveMotorScale      = OI.getDriveScale() * 100.0;
         driveThrottleLeft    = Robot.driveSubsystem.isThrottlingLeft();
         driveThrottleRight   = Robot.driveSubsystem.isThrottlingRight();
