@@ -19,11 +19,11 @@ public class RampProximitySubsystem extends Subsystem {
     }
 
     public boolean getLeft() {
-        return sensorLeft.get();
+        return !sensorLeft.get();
     }
 
     public boolean getRight() {
-        return sensorRight.get();
+        return !sensorRight.get();
     }
 }
 

@@ -22,8 +22,8 @@ public class ToteProximitySubsystem extends Subsystem {
     }
 
     public Location get() {
-        boolean near = sensorNear.get();
-        boolean far  = sensorFar.get();
+        boolean near = !sensorNear.get();
+        boolean far  = !sensorFar.get();
 
         if (near && far) { return Location.BOTH; }
         else if (far && !near) { return Location.FAR; }
