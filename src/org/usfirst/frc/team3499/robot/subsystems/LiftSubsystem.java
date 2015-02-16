@@ -34,6 +34,7 @@ public class LiftSubsystem extends Subsystem {
     public void enable() {
         motor.enableControl();
         motor.changeControlMode(ControlMode.PercentVbus);
+        motor.enableBrakeMode(true);
         motor.reverseSensor(true);
         motor.setPID(P, I, D);
         motor.setSafetyEnabled(true);
