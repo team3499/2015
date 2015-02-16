@@ -50,6 +50,14 @@ public class LiftSubsystem extends Subsystem {
         return motor.isFwdLimitSwitchClosed();
     }
 
+    public int getEncPosition() {
+        return motor.getEncPosition();
+    }
+
+    public double get() {
+        return motor.get();
+    }
+
     public void set(double value) {
         motor.set(value * scale);
     }

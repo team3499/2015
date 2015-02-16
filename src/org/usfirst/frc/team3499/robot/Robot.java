@@ -24,6 +24,7 @@ public class Robot extends IterativeRobot {
     public static EventLightsSubsystem   eventLightsSubsystem;
     public static ToteProximitySubsystem toteProximitySubsystem;
     public static RampProximitySubsystem rampProximitySubsystem;
+    public static DashboardSubsystem     dashboardSubsystem;
 
     // Operator Interface
     public static OI oi;
@@ -56,12 +57,14 @@ public class Robot extends IterativeRobot {
         eventLightsSubsystem   = new EventLightsSubsystem();
         toteProximitySubsystem = new ToteProximitySubsystem();
         rampProximitySubsystem = new RampProximitySubsystem();
+        dashboardSubsystem     = new DashboardSubsystem();
 
         oi = new OI();
 
         debugLED = new DebugLED();
 
         driveSubsystem.init();
+        liftSubsystem.init();
     }
 
     public void disabledPeriodic() {

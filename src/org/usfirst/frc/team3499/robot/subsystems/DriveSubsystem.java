@@ -65,5 +65,20 @@ public class DriveSubsystem extends Subsystem {
     public void stop() {
         drive.stopMotor();
     }
+
+    public double getMotorPWM(int index) {
+        double pwm = 0.0;
+        try { pwm = motors[index].get(); }
+        catch (RuntimeException ex) { }
+        return pwm;
+    }
+
+    public boolean isThrottlingLeft() {
+        return drive.throttleLeftActive;
+    }
+
+    public boolean isThrottlingRight() {
+        return drive.throttleRightActive;
+    }
 }
 

@@ -21,6 +21,8 @@ public class Drive extends RobotDrive {
     public static Mode mode = Mode.NORMAL;
     public static double crawlPercent = 0.2;     // percentage of full speed
     public static double rampThrottle = 0.02;    // max change per 10ms
+    public static boolean throttleLeftActive  = false;  // is currently throttling input
+    public static boolean throttleRightActive = false;  // is currently throttling input
     private static Timer timer = new Timer();
 
     private double rampedLastSampleTime;
@@ -67,12 +69,16 @@ public class Drive extends RobotDrive {
     public void setRampedLeftRightMotorOutputs(double leftOutput, double rightOutput) {
         double now = timer.get();
         double maxChange = Math.min((now - rampedLastSampleTime) * 100 * rampThrottle, 1.0);
+        throttleLeftActive  = false;
+        throttleRightActive = false;
 
         if (Math.abs(leftOutput - rampedLeftOutput) > maxChange) {
+            throttleLeftActive  = true;
             if (leftOutput < rampedLeftOutput) { leftOutput = rampedLeftOutput - maxChange; }
             else { leftOutput = rampedLeftOutput + maxChange; }
         }
         if (Math.abs(rightOutput - rampedRightOutput) > maxChange) {
+            throttleRightActive = true;
             if (rightOutput < rampedRightOutput) { rightOutput = rampedRightOutput - maxChange; }
             else { rightOutput = rampedRightOutput + maxChange; }
         }
