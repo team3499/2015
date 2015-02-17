@@ -18,9 +18,10 @@ public class LiftSubsystem extends Subsystem {
     public static double I = 0.00001;
     public static double D = 0.0;
 
-    public static double scale = 0.5;   // run at 50% max speed
+    public static double scale = 10.0;   // 10 ticks per 10ms max
 
-    CANTalon motor = new CANTalon(RobotMap.liftMotorCanId);
+    CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
+    CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftTeleopCommand());
@@ -33,13 +34,21 @@ public class LiftSubsystem extends Subsystem {
 
     public void enable() {
         motor.enableControl();
-        motor.changeControlMode(ControlMode.PercentVbus);
+        motor.changeControlMode(ControlMode.Speed);
         motor.enableBrakeMode(true);
         motor.reverseSensor(true);
         motor.setPID(P, I, D);
         motor.setSafetyEnabled(true);
         motor.setExpiration(0.100);
         motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        motorFollower.enableControl();
+        motorFollower.changeControlMode(ControlMode.Follower);
+        motorFollower.enableBrakeMode(true);
+        motorFollower.reverseSensor(true);
+        motorFollower.setPID(P, I, D);
+        motorFollower.setSafetyEnabled(true);
+        motorFollower.setExpiration(0.100);
+        motorFollower.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     }
 
     public boolean isAtBottom() {
@@ -60,6 +69,7 @@ public class LiftSubsystem extends Subsystem {
 
     public void set(double value) {
         motor.set(value * scale);
+        motorFollower.set(motor.getDeviceID());
     }
 
     public void stop() {

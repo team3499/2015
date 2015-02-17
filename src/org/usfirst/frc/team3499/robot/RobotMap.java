@@ -83,7 +83,8 @@ public class RobotMap {
     public static int driveMotorRRPort = PWM5;
 
     // TalonSRX assignment
-    public static int liftMotorCanId = 50;
+    public static int liftMotorMasterCanId   = 50;
+    public static int liftMotorFollowerCanId = 51;
 
     // Tote proximity sensor assignments
     public static int toteProximitySensorNearPort = DIO0;
