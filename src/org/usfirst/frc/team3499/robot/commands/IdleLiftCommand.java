@@ -11,6 +11,9 @@ import org.usfirst.frc.team3499.robot.Robot;
 public class IdleLiftCommand extends Command {
 
     Timer timer = new Timer();
+    double timeout = 4.0;
+    double speed   = 0.5;
+    public static int idlePosition = 1000;
 
     public IdleLiftCommand() {
         requires(Robot.liftSubsystem);
@@ -19,17 +22,21 @@ public class IdleLiftCommand extends Command {
     protected void initialize() {
         timer.reset();
         timer.start();
+        // We're above the idle position, switch direction of travel
+        if (Robot.liftSubsystem.getEncPosition() > idlePosition) { speed = -speed; }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.liftSubsystem.set(0.5);
+        Robot.liftSubsystem.set(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.liftSubsystem.getEncPosition() == 1000 ||
-               timer.hasPeriodPassed(4.0);
+        int currentPosition = Robot.liftSubsystem.getEncPosition();
+        return (speed > 0 && currentPosition >= idlePosition) ||
+               (speed < 0 && currentPosition <= idlePosition) ||
+               (timer.hasPeriodPassed(timeout));
     }
 
     // Called once after isFinished returns true
