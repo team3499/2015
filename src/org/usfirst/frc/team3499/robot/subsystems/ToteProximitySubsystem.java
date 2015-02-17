@@ -18,7 +18,7 @@ public class ToteProximitySubsystem extends Subsystem {
     public enum Location { NONE, NEAR, FAR, BOTH }
 
     public void initDefaultCommand() {
-        new DetectToteCommand();
+        setDefaultCommand(new DetectToteCommand());
     }
 
     public Location get() {

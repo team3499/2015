@@ -15,7 +15,7 @@ public class RampProximitySubsystem extends Subsystem {
     DigitalInput sensorRight = new DigitalInput(RobotMap.rampProximitySensorRightPort);
 
     public void initDefaultCommand() {
-        new DetectRampCommand();
+        setDefaultCommand(new DetectRampCommand());
     }
 
     public boolean getLeft() {
