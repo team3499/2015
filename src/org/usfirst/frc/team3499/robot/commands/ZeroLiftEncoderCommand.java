@@ -12,6 +12,7 @@ import org.usfirst.frc.team3499.robot.Robot;
 public class ZeroLiftEncoderCommand extends Command {
 
     Timer timer = new Timer();
+    public static double timeout = 3.0;
 
     public ZeroLiftEncoderCommand() {
         requires(Robot.liftSubsystem);
@@ -30,7 +31,7 @@ public class ZeroLiftEncoderCommand extends Command {
         if (Robot.liftSubsystem.isAtBottom()) {
             Robot.liftSubsystem.zeroEncoder();
             return true;
-        } else if (timer.hasPeriodPassed(3.0)) {
+        } else if (timer.hasPeriodPassed(timeout)) {
             return true;
         }
         return false;
