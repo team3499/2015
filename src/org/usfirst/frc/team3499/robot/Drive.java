@@ -23,6 +23,7 @@ public class Drive extends RobotDrive {
     public static double rampThrottle = 0.02;    // max change per 10ms
     public static boolean throttleLeftActive  = false;  // is currently throttling input
     public static boolean throttleRightActive = false;  // is currently throttling input
+    public static double bias = 0.6;             // amount to derate the stronger right motors
     private static Timer timer = new Timer();
 
     private double rampedLastSampleTime;
@@ -82,6 +83,9 @@ public class Drive extends RobotDrive {
             if (rightOutput < rampedRightOutput) { rightOutput = rampedRightOutput - maxChange; }
             else { rightOutput = rampedRightOutput + maxChange; }
         }
+
+        // apply bias to correct for geartrain
+        rightOutput /= bias;
 
         updateRampSample(now, leftOutput, rightOutput);
         super.setLeftRightMotorOutputs(leftOutput, rightOutput);
