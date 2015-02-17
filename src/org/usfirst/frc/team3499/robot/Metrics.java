@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3499.robot;
 
 import org.usfirst.frc.team3499.robot.Robot;
-import org.usfirst.frc.team3499.robot.subsystems.ToteProximitySubsystem.Location;
 import org.usfirst.frc.team3499.robot.Drive.Mode;
 
 /**
@@ -11,8 +10,9 @@ public class Metrics {
 
     public static boolean  sensorRampLeft            = false;
     public static boolean  sensorRampRight           = false;
-    public static boolean  sensorToteFar             = false;
-    public static boolean  sensorToteNear            = false;
+    public static boolean  sensorToteLeft            = false;
+    public static boolean  sensorToteCenter          = false;
+    public static boolean  sensorToteRight           = false;
     public static double[] driveMotorPercent         = { 0.0, 0.0, 0.0, 0.0 };
     public static double   driveMotorScale           = 0.0;
     public static String   driveMode                 = "NORMAL";
@@ -37,25 +37,9 @@ public class Metrics {
     }
 
     public static void readTote() {
-        Location location = Robot.toteProximitySubsystem.get();
-        switch (location) {
-            case BOTH:
-                sensorToteNear = true;
-                sensorToteFar  = true;
-                break;
-            case FAR:
-                sensorToteNear = false;
-                sensorToteFar  = true;
-                break;
-            case NEAR:
-                sensorToteNear = true;
-                sensorToteFar  = false;
-                break;
-            case NONE:
-                sensorToteNear = false;
-                sensorToteFar  = false;
-                break;
-        }
+        sensorToteLeft   = Robot.toteProximitySubsystem.getLeft();
+        sensorToteCenter = Robot.toteProximitySubsystem.getCenter();
+        sensorToteRight  = Robot.toteProximitySubsystem.getRight();
     }
 
     public static void readDrive() {

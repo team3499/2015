@@ -11,31 +11,45 @@ import org.usfirst.frc.team3499.robot.Robot;
  */
 public class DetectToteCommand extends Command {
 
+    UpdateEventLightsCommand lightsOffCommand;
+    UpdateEventLightsCommand lightsSideCommand;
+    UpdateEventLightsCommand lightsCenterCommand;
+
     public DetectToteCommand() {
         requires(Robot.toteProximitySubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
+        lightsOffCommand    = new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.OFF);
+        lightsSideCommand   = new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL);
+        lightsCenterCommand = new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.FULL);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        ToteProximitySubsystem.Location location = Robot.toteProximitySubsystem.get();
+        boolean left   = Robot.toteProximitySubsystem.getLeft();
+        boolean center = Robot.toteProximitySubsystem.getCenter();
+        boolean right  = Robot.toteProximitySubsystem.getRight();
 
-        switch (location) {
-            case FAR:
-                new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL).start();
-                break;
-            case NEAR:
-                new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.PARTIAL).start();
-                break;
-            case BOTH:
-                new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.FULL).start();
-                break;
-            default:
-                new UpdateEventLightsCommand(Robot.Sensor.TOTE, Robot.SensorState.OFF).start();
+        if (center) {
+            if (!lightsCenterCommand.isRunning()) {
+                lightsOffCommand.cancel();
+                lightsSideCommand.cancel();
+                lightsCenterCommand.start();
+            }
+        } else if (left || right) {
+            if (!lightsSideCommand.isRunning()) {
+                lightsOffCommand.cancel();
+                lightsCenterCommand.cancel();
+                lightsSideCommand.start();
+            }
+        } else {
+            if (!lightsOffCommand.isRunning()) {
+                lightsSideCommand.cancel();
+                lightsCenterCommand.cancel();
+                lightsOffCommand.start();
+            }
         }
     }
 

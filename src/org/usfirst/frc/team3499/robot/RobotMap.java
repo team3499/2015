@@ -86,12 +86,13 @@ public class RobotMap {
     public static int liftMotorCanId = 50;
 
     // Tote proximity sensor assignments
-    public static int toteProximitySensorNearPort = DIO0;
-    public static int toteProximitySensorFarPort  = DIO1;
+    public static int toteProximitySensorLeftPort   = DIO0;
+    public static int toteProximitySensorCenterPort = DIO1;
+    public static int toteProximitySensorRightPort  = DIO2;
 
     // Ramp proximity sensor assignments
-    public static int rampProximitySensorLeftPort  = DIO2;
-    public static int rampProximitySensorRightPort = DIO3;
+    public static int rampProximitySensorLeftPort  = DIO3;
+    public static int rampProximitySensorRightPort = DIO4;
 
     // LED Arduino
     public static int ledArduinoPort = PWM9;

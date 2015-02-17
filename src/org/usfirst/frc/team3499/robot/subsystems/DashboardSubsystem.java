@@ -19,8 +19,9 @@ public class DashboardSubsystem extends Subsystem {
         Metrics.read();
         SmartDashboard.putBoolean("Ramp Left", Metrics.sensorRampLeft);
         SmartDashboard.putBoolean("Ramp Right", Metrics.sensorRampRight);
-        SmartDashboard.putBoolean("Tote Near", Metrics.sensorToteNear);
-        SmartDashboard.putBoolean("Tote Far", Metrics.sensorToteFar);
+        SmartDashboard.putBoolean("Tote Left", Metrics.sensorToteLeft);
+        SmartDashboard.putBoolean("Tote Center", Metrics.sensorToteCenter);
+        SmartDashboard.putBoolean("Tote Right", Metrics.sensorToteRight);
         SmartDashboard.putBoolean("Lift Upper", Metrics.liftMotorLimitSwitchUpper);
         SmartDashboard.putBoolean("Lift Lower", Metrics.liftMotorLimitSwitchLower);
         SmartDashboard.putDouble("Drive Motor LF", Metrics.driveMotorPercent[0]);

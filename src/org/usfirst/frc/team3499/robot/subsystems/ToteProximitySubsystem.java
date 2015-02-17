@@ -12,24 +12,28 @@ import org.usfirst.frc.team3499.robot.RobotMap;
  */
 public class ToteProximitySubsystem extends Subsystem {
 
-    DigitalInput sensorNear = new DigitalInput(RobotMap.toteProximitySensorNearPort);
-    DigitalInput sensorFar  = new DigitalInput(RobotMap.toteProximitySensorFarPort);
-
-    public enum Location { NONE, NEAR, FAR, BOTH }
+    DigitalInput sensorLeft   = new DigitalInput(RobotMap.toteProximitySensorLeftPort);
+    DigitalInput sensorCenter = new DigitalInput(RobotMap.toteProximitySensorCenterPort);
+    DigitalInput sensorRight  = new DigitalInput(RobotMap.toteProximitySensorRightPort);
 
     public void initDefaultCommand() {
         setDefaultCommand(new DetectToteCommand());
     }
 
-    public Location get() {
-        boolean near = !sensorNear.get();
-        boolean far  = !sensorFar.get();
+    public boolean get() {
+        return getLeft() || getCenter() || getRight();
+    }
 
-        if (near && far) { return Location.BOTH; }
-        else if (far && !near) { return Location.FAR; }
-        else if (near && !far) { return Location.NEAR; }
+    public boolean getLeft() {
+        return !sensorLeft.get();
+    }
 
-        return Location.NONE;
+    public boolean getCenter() {
+        return !sensorCenter.get();
+    }
+
+    public boolean getRight() {
+        return !sensorRight.get();
     }
 }
 
