@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team3499.robot.subsystems.*;
+import org.usfirst.frc.team3499.robot.commands.*;
 import org.usfirst.frc.team3499.robot.DebugLED;
 
 /**
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
     public static DebugLED debugLED;
 
     Command autonomousCommand;
+    TestEventLightsCommand testEventLightsCommand;
 
     public enum Sensor {
         TOTE,
@@ -59,6 +61,8 @@ public class Robot extends IterativeRobot {
         rampProximitySubsystem = new RampProximitySubsystem();
         dashboardSubsystem     = new DashboardSubsystem();
 
+        testEventLightsCommand = new TestEventLightsCommand();
+
         oi = new OI();
 
         debugLED = new DebugLED();
@@ -74,6 +78,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+
+        testEventLightsCommand.start();
     }
 
     /**
@@ -89,6 +95,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        testEventLightsCommand.cancel();
 
         driveSubsystem.init();
         liftSubsystem.init();

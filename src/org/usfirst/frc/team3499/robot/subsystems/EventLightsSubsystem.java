@@ -89,7 +89,7 @@ public class EventLightsSubsystem extends Subsystem {
     //    220        GREEN      GREEN      RED
     //    240        GREEN      GREEN      GREEN
     //
-    private void updatePWM() {
+    public void updatePWM() {
         int pwm = 20;
 
         if (right == Robot.SensorState.FULL) { pwm += 20; }
@@ -100,6 +100,10 @@ public class EventLightsSubsystem extends Subsystem {
         else if (top == Robot.SensorState.PARTIAL) { pwm += 80; }
         else { pwm += 0; }
 
+        setRaw(pwm);
+    }
+
+    public void setRaw(int pwm) {
         arduinoPWM.setRaw(pwm);
     }
 }
