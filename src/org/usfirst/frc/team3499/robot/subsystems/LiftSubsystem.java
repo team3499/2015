@@ -14,11 +14,11 @@ import org.usfirst.frc.team3499.robot.commands.LiftTeleopCommand;
  */
 public class LiftSubsystem extends Subsystem {
 
-    public static double P = 0.4;
+    public static double P = 4.0;
     public static double I = 0.00001;
     public static double D = 0.0;
 
-    public static double scale = 10.0;   // 10 ticks per 10ms max
+    public static double scale = 1000.0;   // 1000 ticks per 10ms max
 
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
@@ -36,10 +36,9 @@ public class LiftSubsystem extends Subsystem {
         motor.enableControl();
         motor.changeControlMode(ControlMode.Speed);
         motor.enableBrakeMode(true);
-        motor.reverseSensor(true);
         motor.setPID(P, I, D);
         motor.setSafetyEnabled(true);
-        motor.setExpiration(0.100);
+        motor.setExpiration(0.200);
         motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         motorFollower.enableControl();
         motorFollower.changeControlMode(ControlMode.Follower);
@@ -47,7 +46,7 @@ public class LiftSubsystem extends Subsystem {
         motorFollower.reverseSensor(true);
         motorFollower.setPID(P, I, D);
         motorFollower.setSafetyEnabled(true);
-        motorFollower.setExpiration(0.100);
+        motorFollower.setExpiration(0.200);
         motorFollower.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     }
 
@@ -68,7 +67,8 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void set(double value) {
-        motor.set(value * scale);
+        if (value > 0.0) { motor.set(value * scale * 0.1); }
+        else { motor.set(value * scale); }
         motorFollower.set(motor.getDeviceID());
     }
 
