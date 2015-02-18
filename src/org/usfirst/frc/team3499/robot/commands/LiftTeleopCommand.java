@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3499.robot.commands;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team3499.robot.Robot;
@@ -14,15 +13,13 @@ import org.usfirst.frc.team3499.robot.OI;
  * and translates it to lift motor movement.
  */
 public class LiftTeleopCommand extends Command {
-	
-	private Solenoid solenoid = new Solenoid(60, 0);
 
     public LiftTeleopCommand() {
         requires(Robot.liftSubsystem);
     }
 
     protected void initialize() {
-    	solenoid.set(false);
+    	
     }
 
     protected void execute() {
@@ -30,7 +27,7 @@ public class LiftTeleopCommand extends Command {
         double scale = OI.getLiftScale();
         boolean drop = OI.isDropBox();
         Robot.liftSubsystem.set(move * scale);
-        solenoid.set(drop);
+        Robot.liftSubsystem.open(drop);
     }
 
     protected boolean isFinished() {
@@ -39,7 +36,7 @@ public class LiftTeleopCommand extends Command {
 
     protected void end() {
         Robot.liftSubsystem.stop();
-        solenoid.set(false);
+        Robot.liftSubsystem.open(false);
     }
 
     protected void interrupted() {

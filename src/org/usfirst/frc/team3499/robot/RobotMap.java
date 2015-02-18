@@ -100,4 +100,8 @@ public class RobotMap {
 
     // Debug LED
     public static int debugLedPort = DIO9;
+    
+    // PCM (pneumatics) assignments
+    public static int pControlCAN = 60;
+    public static int pControlPort = 0;
 }

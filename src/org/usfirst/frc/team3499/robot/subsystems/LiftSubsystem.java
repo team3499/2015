@@ -2,6 +2,7 @@ package org.usfirst.frc.team3499.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 
@@ -22,6 +23,8 @@ public class LiftSubsystem extends Subsystem {
 
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
+    
+    Solenoid solenoid = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPort);
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftTeleopCommand());
@@ -74,6 +77,10 @@ public class LiftSubsystem extends Subsystem {
 
     public void stop() {
         motor.stopMotor();
+    }
+    
+    public void open(boolean open) {
+    	solenoid.set(open);
     }
 }
 
