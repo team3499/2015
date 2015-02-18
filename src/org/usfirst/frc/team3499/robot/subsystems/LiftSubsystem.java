@@ -24,7 +24,8 @@ public class LiftSubsystem extends Subsystem {
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
     
-    Solenoid solenoid = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPort);
+    Solenoid solenoidLeft = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortLeft);
+    Solenoid solenoidRight = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortRight);
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftTeleopCommand());
@@ -80,7 +81,8 @@ public class LiftSubsystem extends Subsystem {
     }
     
     public void open(boolean open) {
-    	solenoid.set(open);
+    	solenoidLeft.set(open);
+    	solenoidRight.set(open);
     }
 }
 
