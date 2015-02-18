@@ -66,8 +66,12 @@ public class LiftSubsystem extends Subsystem {
         return motor.getEncPosition();
     }
 
-    public double get() {
+    public double getMaster() {
         return motor.get();
+    }
+    
+    public double getFollower() {
+    	return motorFollower.get();
     }
 
     public void set(double value) {

@@ -32,7 +32,10 @@ public class DashboardSubsystem extends Subsystem {
         SmartDashboard.putString("Drive Mode", Metrics.driveMode);
         SmartDashboard.putBoolean("Drive Throttling Left", Metrics.driveThrottleLeft);
         SmartDashboard.putBoolean("Drive Throttling Right", Metrics.driveThrottleRight);
-        SmartDashboard.putDouble("Lift Motor", Metrics.liftMotorPercent);
+        //SmartDashboard.putDouble("Lift Motor", Metrics.liftMotorPercent);
+        SmartDashboard.putDouble("Master Lift Motor", Metrics.liftMotorMasterSpeed);
+        SmartDashboard.putDouble("Follower Lift Motor", Metrics.liftMotorFollowerSpeed);
+        SmartDashboard.putDouble("Avg of Lift Motors", Metrics.liftMotorAvg);
         SmartDashboard.putDouble("Lift Scale", Metrics.liftMotorScale);
         SmartDashboard.putInt("Lift Encoder", Metrics.liftMotorEncoderPosition);
     }
