@@ -85,7 +85,7 @@ public class Drive extends RobotDrive {
         }
 
         // apply bias to correct for geartrain
-        rightOutput /= bias;
+        rightOutput *= bias;
 
         updateRampSample(now, leftOutput, rightOutput);
         super.setLeftRightMotorOutputs(leftOutput, rightOutput);
