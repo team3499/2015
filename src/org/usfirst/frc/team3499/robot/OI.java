@@ -22,7 +22,8 @@ public class OI {
     public static Button driveRawLButton  = new JoystickButton(driveStick, RobotMap.BASE6);
     public static Button driveRawRButton  = new JoystickButton(driveStick, RobotMap.BASE11);
     
-    public static Button pReleaseButton = new JoystickButton(liftStick, RobotMap.TRIGGER);
+    public static Button pReleaseButton   = new JoystickButton(liftStick, RobotMap.TRIGGER);
+    public static Button pPushButton      = new JoystickButton(liftStick, RobotMap.HAT3);
 
     public static double getDriveMove() {
         return -driveStick.getY();
@@ -62,6 +63,10 @@ public class OI {
     
     public static boolean isDropBox() {
     	return pReleaseButton.get();
+    }
+    
+    public static boolean isPushBox() {
+    	return pPushButton.get();
     }
 
     //// CREATING BUTTONS
