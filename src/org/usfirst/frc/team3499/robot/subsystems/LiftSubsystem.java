@@ -24,7 +24,7 @@ public class LiftSubsystem extends Subsystem {
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
     
-    Solenoid solenoidLeft = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortLeft);
+    Solenoid solenoidLeft  = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortLeft);
     Solenoid solenoidRight = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortRight);
 
     public void initDefaultCommand() {
@@ -47,7 +47,6 @@ public class LiftSubsystem extends Subsystem {
         motorFollower.enableControl();
         motorFollower.changeControlMode(ControlMode.Follower);
         motorFollower.enableBrakeMode(true);
-        motorFollower.reverseSensor(true);
         motorFollower.setPID(P, I, D);
         motorFollower.setSafetyEnabled(true);
         motorFollower.setExpiration(0.200);
