@@ -103,6 +103,6 @@ public class RobotMap {
     
     // PCM (pneumatics) assignments
     public static int pControlCAN = 60;
-    public static int pControlPortLift = 0;
-    public static int pControlPortPush = 1;
+    public static int pControlPortLift = 1;
+    public static int pControlPortPush = 0;
 }
