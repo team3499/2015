@@ -43,6 +43,16 @@ public class RobotMap {
     public static int RELAY2 = 2;
     public static int RELAY3 = 3;
 
+    // Solenoid Ports (PCM)
+    public static int SOL0 = 0;
+    public static int SOL1 = 1;
+    public static int SOL2 = 2;
+    public static int SOL3 = 3;
+    public static int SOL4 = 4;
+    public static int SOL5 = 5;
+    public static int SOL6 = 6;
+    public static int SOL7 = 7;
+
     // USB ports
     public static int USB0 = 0;
     public static int USB1 = 1;
@@ -100,4 +110,9 @@ public class RobotMap {
 
     // Debug LED
     public static int debugLedPort = DIO9;
+
+    // PCM (pneumatics) assignments
+    public static int pControlCAN = 60;
+    public static int pControlPortLift = SOL1;
+    public static int pControlPortPush = SOL0;
 }

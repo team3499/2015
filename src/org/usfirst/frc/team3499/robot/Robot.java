@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team3499.robot.subsystems.*;
 import org.usfirst.frc.team3499.robot.commands.*;
 import org.usfirst.frc.team3499.robot.DebugLED;
+import org.usfirst.frc.team3499.robot.Sensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,22 +31,12 @@ public class Robot extends IterativeRobot {
     // Operator Interface
     public static OI oi;
 
+    // Sensor state
+    public static Sensors sensors;
+
     public static DebugLED debugLED;
 
     Command autonomousCommand;
-    TestEventLightsCommand testEventLightsCommand;
-
-    public enum Sensor {
-        TOTE,
-        RAMP_LEFT,
-        RAMP_RIGHT;
-    };
-
-    public enum SensorState {
-        OFF,
-        PARTIAL,
-        FULL;
-    };
 
     /**
      * This function is run when the robot is first started up and should be
@@ -61,9 +52,9 @@ public class Robot extends IterativeRobot {
         rampProximitySubsystem = new RampProximitySubsystem();
         dashboardSubsystem     = new DashboardSubsystem();
 
-        testEventLightsCommand = new TestEventLightsCommand();
-
         oi = new OI();
+
+        sensors = new Sensors();
 
         debugLED = new DebugLED();
 
@@ -78,8 +69,6 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
-
-        testEventLightsCommand.start();
     }
 
     /**
@@ -95,7 +84,6 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        testEventLightsCommand.cancel();
 
         driveSubsystem.init();
         liftSubsystem.init();

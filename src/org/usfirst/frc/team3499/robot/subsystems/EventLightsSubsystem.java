@@ -12,61 +12,48 @@ import org.usfirst.frc.team3499.robot.Robot;
  */
 public class EventLightsSubsystem extends Subsystem {
 
+    public enum Color {
+        OFF,
+        RED,
+        GREEN,
+        BLUE,
+        WHITE;
+    };
+
     PWM arduinoPWM = new PWM(RobotMap.ledArduinoPort);
-    Robot.SensorState top   = Robot.SensorState.OFF;
-    Robot.SensorState left  = Robot.SensorState.OFF;
-    Robot.SensorState right = Robot.SensorState.OFF;
+
+    Color top   = Color.RED;
+    Color left  = Color.RED;
+    Color right = Color.RED;
 
     public void initDefaultCommand() {
 
     }
 
-    public void setState(Robot.Sensor sensor, Robot.SensorState state) {
-      switch (sensor) {
-          case TOTE:       setTopState(state);   break;
-          case RAMP_LEFT:  setLeftState(state);  break;
-          case RAMP_RIGHT: setRightState(state); break;
-      }
-    }
-
-    public Robot.SensorState getState(Robot.Sensor sensor) {
-      switch (sensor) {
-          case TOTE:       return getTopState();
-          case RAMP_LEFT:  return getLeftState();
-          case RAMP_RIGHT: return getRightState();
-      }
-
-      return null;
-    }
-
-    public void setTopState(Robot.SensorState state) {
-        top = state;
+    public void setTopColor(Color color) {
+        top = color;
         updatePWM();
     }
 
-    public Robot.SensorState getTopState() {
+    public Color getTopColor() {
         return top;
     }
 
-    public void setLeftState(Robot.SensorState state) {
-        if (state == Robot.SensorState.PARTIAL) { state = Robot.SensorState.FULL; }
-
-        left = state;
+    public void setLeftColor(Color color) {
+        left = color;
         updatePWM();
     }
 
-    public Robot.SensorState getLeftState() {
+    public Color getLeftColor() {
         return left;
     }
 
-    public void setRightState(Robot.SensorState state) {
-        if (state == Robot.SensorState.PARTIAL) { state = Robot.SensorState.FULL; }
-
-        right = state;
+    public void setRightColor(Color color) {
+        right = color;
         updatePWM();
     }
 
-    public Robot.SensorState getRightState() {
+    public Color getRightColor() {
         return right;
     }
 
@@ -75,29 +62,30 @@ public class EventLightsSubsystem extends Subsystem {
     //
     //    PWM        TOP        LEFT       RIGHT
     //    ---------  ---------  ---------  ----------
-    //     01        OFF        OFF        OFF
-    //     20        RED        RED        RED
-    //     40        RED        RED        GREEN
-    //     60        RED        GREEN      RED
-    //     80        RED        GREEN      GREEN
-    //    100        VIOLET     RED        RED
-    //    120        VIOLET     RED        GREEN
-    //    140        VIOLET     GREEN      RED
-    //    160        VIOLET     GREEN      GREEN
-    //    180        GREEN      RED        RED
-    //    200        GREEN      RED        GREEN
-    //    220        GREEN      GREEN      RED
-    //    240        GREEN      GREEN      GREEN
+    //    000        OFF        OFF        OFF
+    //    001        RED        RED        RED
+    //    021        RED        RED        GREEN
+    //    041        RED        GREEN      RED
+    //    061        RED        GREEN      GREEN
+    //    081        BLUE       RED        RED
+    //    101        BLUE       RED        GREEN
+    //    121        BLUE       GREEN      RED
+    //    141        BLUE       GREEN      GREEN
+    //    161        GREEN      RED        RED
+    //    181        GREEN      RED        GREEN
+    //    201        GREEN      GREEN      RED
+    //    221        GREEN      GREEN      GREEN
+    //    241        WHITE      WHITE      WHITE
     //
     public void updatePWM() {
-        int pwm = 20;
+        int pwm = 1;
 
-        if (right == Robot.SensorState.FULL) { pwm += 20; }
+        if (right == Color.GREEN) { pwm += 20; }
         else { pwm += 0; }
-        if (left == Robot.SensorState.FULL) { pwm += 20; }
+        if (left == Color.GREEN) { pwm += 40; }
         else { pwm += 0; }
-        if (top == Robot.SensorState.FULL) { pwm += 160; }
-        else if (top == Robot.SensorState.PARTIAL) { pwm += 80; }
+        if (top == Color.GREEN) { pwm += 160; }
+        else if (top == Color.BLUE) { pwm += 80; }
         else { pwm += 0; }
 
         setRaw(pwm);

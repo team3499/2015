@@ -2,6 +2,7 @@ package org.usfirst.frc.team3499.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 
@@ -22,6 +23,9 @@ public class LiftSubsystem extends Subsystem {
 
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
+    
+    Solenoid solenoidLift  = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortLift);
+    Solenoid solenoidPush  = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortPush);
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftTeleopCommand());
@@ -43,7 +47,6 @@ public class LiftSubsystem extends Subsystem {
         motorFollower.enableControl();
         motorFollower.changeControlMode(ControlMode.Follower);
         motorFollower.enableBrakeMode(true);
-        motorFollower.reverseSensor(true);
         motorFollower.setPID(P, I, D);
         motorFollower.setSafetyEnabled(true);
         motorFollower.setExpiration(0.200);
@@ -66,8 +69,12 @@ public class LiftSubsystem extends Subsystem {
         motor.setPosition(0);
     }
 
-    public double get() {
+    public double getMaster() {
         return motor.get();
+    }
+    
+    public double getFollower() {
+    	return motorFollower.get();
     }
 
     public void set(double value) {
@@ -78,6 +85,14 @@ public class LiftSubsystem extends Subsystem {
 
     public void stop() {
         motor.stopMotor();
+    }
+    
+    public void open(boolean open) {
+    	solenoidLift.set(open);
+    }
+    
+    public void push(boolean push) {
+    	solenoidPush.set(push);
     }
 }
 

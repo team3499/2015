@@ -21,6 +21,9 @@ public class OI {
     public static Button driveRampRButton = new JoystickButton(driveStick, RobotMap.HAT5);
     public static Button driveRawLButton  = new JoystickButton(driveStick, RobotMap.BASE6);
     public static Button driveRawRButton  = new JoystickButton(driveStick, RobotMap.BASE11);
+    
+    public static Button pReleaseButton   = new JoystickButton(liftStick, RobotMap.TRIGGER);
+    public static Button pPushButton      = new JoystickButton(liftStick, RobotMap.HAT3);
 
     public static double getDriveMove() {
         return -driveStick.getY();
@@ -56,6 +59,14 @@ public class OI {
 
     public static double getLiftScale() {
         return (-liftStick.getZ() + 1.5) / 2.5;    // invert and scale Z axis to 0.2 - 1.0
+    }
+    
+    public static boolean isDropBox() {
+    	return pReleaseButton.get();
+    }
+    
+    public static boolean isPushBox() {
+    	return pPushButton.get();
     }
 
     //// CREATING BUTTONS

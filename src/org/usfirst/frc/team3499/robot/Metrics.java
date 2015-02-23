@@ -18,7 +18,10 @@ public class Metrics {
     public static String   driveMode                 = "NORMAL";
     public static boolean  driveThrottleLeft         = false;
     public static boolean  driveThrottleRight        = false;
-    public static double   liftMotorPercent          = 0.0;
+    //public static double   liftMotorPercent          = 0.0;
+    public static double   liftMotorMasterSpeed		 = 0.0;
+    public static double   liftMotorFollowerSpeed    = 0.0;
+    public static double   liftMotorAvg				 = 0.0;
     public static double   liftMotorScale            = 0.0;
     public static int      liftMotorEncoderPosition  = 0;
     public static boolean  liftMotorLimitSwitchLower = false;
@@ -68,7 +71,10 @@ public class Metrics {
     }
 
     public static void readLift() {
-        liftMotorPercent          = Robot.liftSubsystem.get() * 100.0;
+        //liftMotorPercent          = Robot.liftSubsystem.get();
+    	liftMotorMasterSpeed	  = Robot.liftSubsystem.getMaster();
+    	liftMotorFollowerSpeed    = Robot.liftSubsystem.getFollower();
+    	liftMotorAvg			  = (liftMotorMasterSpeed + liftMotorFollowerSpeed) / 2;
         liftMotorScale            = OI.getLiftScale() * 100.0;
         liftMotorEncoderPosition  = Robot.liftSubsystem.getEncPosition();
         liftMotorLimitSwitchUpper = Robot.liftSubsystem.isAtTop();
