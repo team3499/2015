@@ -18,20 +18,26 @@ public class Metrics {
     public static String   driveMode                 = "NORMAL";
     public static boolean  driveThrottleLeft         = false;
     public static boolean  driveThrottleRight        = false;
-    //public static double   liftMotorPercent          = 0.0;
-    public static double   liftMotorMasterSpeed		 = 0.0;
+    public static double   liftMotorMasterSpeed      = 0.0;
     public static double   liftMotorFollowerSpeed    = 0.0;
-    public static double   liftMotorAvg				 = 0.0;
+    public static double   liftMotorAvg              = 0.0;
     public static double   liftMotorScale            = 0.0;
     public static int      liftMotorEncoderPosition  = 0;
     public static boolean  liftMotorLimitSwitchLower = false;
     public static boolean  liftMotorLimitSwitchUpper = false;
+    public static double   liftMotorP                = 0.0;
+    public static double   liftMotorI                = 0.0;
+    public static double   liftMotorD                = 0.0;
 
     public static void read() {
         readRamp();
         readTote();
         readDrive();
         readLift();
+    }
+
+    public static void sync() {
+        syncLift();
     }
 
     public static void readRamp() {
@@ -71,14 +77,23 @@ public class Metrics {
     }
 
     public static void readLift() {
-        //liftMotorPercent          = Robot.liftSubsystem.get();
-    	liftMotorMasterSpeed	  = Robot.liftSubsystem.getMaster();
-    	liftMotorFollowerSpeed    = Robot.liftSubsystem.getFollower();
-    	liftMotorAvg			  = (liftMotorMasterSpeed + liftMotorFollowerSpeed) / 2;
+        liftMotorMasterSpeed      = Robot.liftSubsystem.getMaster();
+        liftMotorFollowerSpeed    = Robot.liftSubsystem.getFollower();
+        liftMotorAvg              = (liftMotorMasterSpeed + liftMotorFollowerSpeed) / 2;
         liftMotorScale            = OI.getLiftScale() * 100.0;
         liftMotorEncoderPosition  = Robot.liftSubsystem.getEncPosition();
         liftMotorLimitSwitchUpper = Robot.liftSubsystem.isAtTop();
         liftMotorLimitSwitchLower = Robot.liftSubsystem.isAtBottom();
+        liftMotorP                = Robot.liftSubsystem.P;
+        liftMotorI                = Robot.liftSubsystem.I;
+        liftMotorD                = Robot.liftSubsystem.D;
+    }
+
+    public static void syncLift() {
+        Robot.liftSubsystem.P = liftMotorP;
+        Robot.liftSubsystem.I = liftMotorI;
+        Robot.liftSubsystem.D = liftMotorD;
+        Robot.liftSubsystem.updatePID();
     }
 }
 

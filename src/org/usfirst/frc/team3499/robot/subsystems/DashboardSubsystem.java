@@ -3,6 +3,7 @@ package org.usfirst.frc.team3499.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3499.robot.Robot;
 import org.usfirst.frc.team3499.robot.Metrics;
 import org.usfirst.frc.team3499.robot.commands.UpdateDashboardCommand;
 
@@ -13,6 +14,16 @@ public class DashboardSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         setDefaultCommand(new UpdateDashboardCommand());
+    }
+
+    public void init() {
+        // Establish default values for lift PID controller on dashboard
+        double v = SmartDashboard.getNumber("Lift P", -1001.0);
+        if (v < -1000.0) { SmartDashboard.putNumber("Lift P", Robot.liftSubsystem.P); }
+        v = SmartDashboard.getNumber("Lift I", -1001.0);
+        if (v < -1000.0) { SmartDashboard.putNumber("Lift I", Robot.liftSubsystem.I); }
+        v = SmartDashboard.getNumber("Lift D", -1001.0);
+        if (v < -1000.0) { SmartDashboard.putNumber("Lift D", Robot.liftSubsystem.D); }
     }
 
     public void update() {
@@ -32,12 +43,16 @@ public class DashboardSubsystem extends Subsystem {
         SmartDashboard.putString("Drive Mode", Metrics.driveMode);
         SmartDashboard.putBoolean("Drive Throttling Left", Metrics.driveThrottleLeft);
         SmartDashboard.putBoolean("Drive Throttling Right", Metrics.driveThrottleRight);
-        //SmartDashboard.putDouble("Lift Motor", Metrics.liftMotorPercent);
         SmartDashboard.putDouble("Master Lift Motor", Metrics.liftMotorMasterSpeed);
         SmartDashboard.putDouble("Follower Lift Motor", Metrics.liftMotorFollowerSpeed);
         SmartDashboard.putDouble("Avg of Lift Motors", Metrics.liftMotorAvg);
         SmartDashboard.putDouble("Lift Scale", Metrics.liftMotorScale);
         SmartDashboard.putInt("Lift Encoder", Metrics.liftMotorEncoderPosition);
+
+        Metrics.liftMotorP = SmartDashboard.getNumber("Lift P", Robot.liftSubsystem.P);
+        Metrics.liftMotorI = SmartDashboard.getNumber("Lift I", Robot.liftSubsystem.I);
+        Metrics.liftMotorD = SmartDashboard.getNumber("Lift D", Robot.liftSubsystem.D);
+        Metrics.sync();
     }
 }
 
