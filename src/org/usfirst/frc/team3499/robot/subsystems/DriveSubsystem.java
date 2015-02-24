@@ -63,6 +63,10 @@ public class DriveSubsystem extends Subsystem {
     }
 
     public void stop() {
+        set(0.0, 0.0);
+    }
+
+    public void disable() {
         drive.stopMotor();
     }
 
