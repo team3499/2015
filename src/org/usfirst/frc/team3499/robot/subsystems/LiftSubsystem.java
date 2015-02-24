@@ -56,11 +56,11 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        return motor.isRevLimitSwitchClosed();
+        return motor.isFwdLimitSwitchClosed();
     }
 
     public boolean isAtTop() {
-        return motor.isFwdLimitSwitchClosed();
+        return motor.isRevLimitSwitchClosed();
     }
 
     public int getEncPosition() {

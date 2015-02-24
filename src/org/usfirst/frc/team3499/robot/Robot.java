@@ -59,8 +59,6 @@ public class Robot extends IterativeRobot {
         debugLED = new DebugLED();
 
         dashboardSubsystem.init();
-        driveSubsystem.init();
-        liftSubsystem.init();
     }
 
     public void disabledPeriodic() {
@@ -68,6 +66,9 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit() {
+        driveSubsystem.init();
+        liftSubsystem.init();
+
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
