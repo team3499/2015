@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 
     public static DebugLED debugLED;
 
-    Command autonomousCommand;
+    AutonomousCommandGroup autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -59,6 +59,8 @@ public class Robot extends IterativeRobot {
         debugLED = new DebugLED();
 
         dashboardSubsystem.init();
+
+        autonomousCommand = new AutonomousCommandGroup();  // TODO - configurable
     }
 
     public void disabledPeriodic() {
@@ -69,7 +71,6 @@ public class Robot extends IterativeRobot {
         driveSubsystem.init();
         liftSubsystem.init();
 
-        // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
@@ -81,10 +82,6 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
 
         driveSubsystem.init();
