@@ -15,15 +15,15 @@ import org.usfirst.frc.team3499.robot.commands.LiftTeleopCommand;
  */
 public class LiftSubsystem extends Subsystem {
 
-    public static double P = 4.0;
-    public static double I = 0.00001;
+    public static double P = 1.0;
+    public static double I = 0.0;
     public static double D = 0.0;
 
     public static double scale = 1000.0;   // 1000 ticks per 10ms max
 
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
-    
+
     Solenoid solenoidLift  = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortLift);
     Solenoid solenoidPush  = new Solenoid(RobotMap.pControlCAN, RobotMap.pControlPortPush);
 
@@ -40,17 +40,19 @@ public class LiftSubsystem extends Subsystem {
         motor.enableControl();
         motor.changeControlMode(ControlMode.Speed);
         motor.enableBrakeMode(true);
-        motor.setPID(P, I, D);
-        motor.setSafetyEnabled(true);
-        motor.setExpiration(0.200);
+        motor.setSafetyEnabled(false);
         motor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         motorFollower.enableControl();
         motorFollower.changeControlMode(ControlMode.Follower);
         motorFollower.enableBrakeMode(true);
-        motorFollower.setPID(P, I, D);
-        motorFollower.setSafetyEnabled(true);
-        motorFollower.setExpiration(0.200);
+        motorFollower.setSafetyEnabled(false);
         motorFollower.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        updatePID();
+    }
+
+    public void updatePID() {
+        motor.setPID(P, I, D);
+        motorFollower.setPID(P, I, D);
     }
 
     public boolean isAtBottom() {
@@ -68,9 +70,9 @@ public class LiftSubsystem extends Subsystem {
     public double getMaster() {
         return motor.get();
     }
-    
+
     public double getFollower() {
-    	return motorFollower.get();
+        return motorFollower.get();
     }
 
     public void set(double value) {
@@ -82,13 +84,13 @@ public class LiftSubsystem extends Subsystem {
     public void stop() {
         motor.stopMotor();
     }
-    
+
     public void open(boolean open) {
-    	solenoidLift.set(open);
+        solenoidLift.set(open);
     }
-    
+
     public void push(boolean push) {
-    	solenoidPush.set(push);
+        solenoidPush.set(push);
     }
 }
 

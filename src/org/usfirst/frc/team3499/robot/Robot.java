@@ -58,6 +58,7 @@ public class Robot extends IterativeRobot {
 
         debugLED = new DebugLED();
 
+        dashboardSubsystem.init();
         driveSubsystem.init();
         liftSubsystem.init();
     }
