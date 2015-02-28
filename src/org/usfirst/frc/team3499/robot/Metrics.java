@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3499.robot;
 
 import org.usfirst.frc.team3499.robot.Robot;
+import org.usfirst.frc.team3499.robot.Drive;
 import org.usfirst.frc.team3499.robot.Drive.Mode;
 
 /**
@@ -37,6 +38,8 @@ public class Metrics {
     public static double   autoTimerBack             = 0.3;
     public static double   autoTimerTurn             = 0.5;
     public static double   autoTimerForward          = 3.0;
+    public static double   derateLeftDrive           = 1.0;
+    public static double   derateRightDrive          = 1.0;
 
     public static void read() {
         readRamp();
@@ -47,6 +50,7 @@ public class Metrics {
 
     public static void sync() {
         syncLift();
+        syncDrive();
     }
 
     public static void readRamp() {
@@ -103,6 +107,11 @@ public class Metrics {
         Robot.liftSubsystem.I = liftMotorI;
         Robot.liftSubsystem.D = liftMotorD;
         Robot.liftSubsystem.updatePID();
+    }
+
+    public static void syncDrive() {
+        Drive.derateLeft  = derateLeftDrive;
+        Drive.derateRight = derateRightDrive;
     }
 }
 

@@ -45,6 +45,11 @@ public class DashboardSubsystem extends Subsystem {
         if (v < -1000.0) { SmartDashboard.putNumber("Auto Timer Turn", Metrics.autoTimerTurn); }
         v = SmartDashboard.getNumber("Auto Timer Forward", -1001.0);
         if (v < -1000.0) { SmartDashboard.putNumber("Auto Timer Forward", Metrics.autoTimerForward); }
+
+        v = SmartDashboard.getNumber("Derate Left Drive", -1001.0);
+        if (v < -1000.0) { SmartDashboard.putNumber("Derate Left Drive", Metrics.derateLeftDrive); }
+        v = SmartDashboard.getNumber("Derate Right Drive", -1001.0);
+        if (v < -1000.0) { SmartDashboard.putNumber("Derate Right Drive", Metrics.derateRightDrive); }
     }
 
     public void update() {
@@ -85,6 +90,9 @@ public class DashboardSubsystem extends Subsystem {
         Metrics.autoTimerBack    = SmartDashboard.getNumber("Auto Timer Back", Metrics.autoTimerBack);
         Metrics.autoTimerTurn    = SmartDashboard.getNumber("Auto Timer Turn", Metrics.autoTimerTurn);
         Metrics.autoTimerForward = SmartDashboard.getNumber("Auto Timer Forward", Metrics.autoTimerForward);
+
+        Metrics.derateLeftDrive  = SmartDashboard.getNumber("Derate Left Drive", Metrics.derateLeftDrive);
+        Metrics.derateRightDrive = SmartDashboard.getNumber("Derate Right Drive", Metrics.derateRightDrive);
 
         Metrics.sync();
     }
