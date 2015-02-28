@@ -28,6 +28,15 @@ public class Metrics {
     public static double   liftMotorP                = 0.0;
     public static double   liftMotorI                = 0.0;
     public static double   liftMotorD                = 0.0;
+    public static boolean  autoSimple                = false;
+    public static boolean  autoStandard              = true;
+    public static double   autoSpeedBack             = 0.5;
+    public static double   autoSpeedTurn             = 0.5;
+    public static double   autoSpeedForward          = 0.5;
+    public static double   autoSpeedRamp             = 0.2;
+    public static double   autoTimerBack             = 0.3;
+    public static double   autoTimerTurn             = 0.5;
+    public static double   autoTimerForward          = 3.0;
 
     public static void read() {
         readRamp();
