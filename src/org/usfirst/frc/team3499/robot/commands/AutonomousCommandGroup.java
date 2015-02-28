@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc.team3499.robot.commands.ZeroLiftEncoderCommand;
 import org.usfirst.frc.team3499.robot.commands.IdleLiftCommand;
+import org.usfirst.frc.team3499.robot.commands.DriveAutoCommand;
 
 /**
  *
@@ -13,6 +14,8 @@ public class AutonomousCommandGroup extends CommandGroup {
     public  AutonomousCommandGroup() {
         addSequential(new ZeroLiftEncoderCommand());
         addSequential(new IdleLiftCommand());
+        addSequential(new DriveAutoCommand());
+        addSequential(new ZeroLiftEncoderCommand());
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
