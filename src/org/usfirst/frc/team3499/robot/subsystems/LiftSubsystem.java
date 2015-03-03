@@ -90,8 +90,8 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void disable() {
-        motor.stopMotor();
-        motorFollower.stopMotor();
+        motor.disableControl();
+        motorFollower.disableControl();
     }
 
     public void open(boolean open) {

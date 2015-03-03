@@ -39,7 +39,7 @@ public class DriveAutoCommand extends Command {
         switch (state) {
             case START:
                 if (Metrics.autoSimple && !Metrics.autoStandard) {
-                    // Dashboard selecting simple auto routine (drive forard)
+                    // Dashboard selecting simple auto routine (drive forward)
                     state = State.FORWARD;
                 } else {
                     // Dashboard selecting standard auto routine
@@ -76,6 +76,9 @@ public class DriveAutoCommand extends Command {
                     state = State.STOP;
                 }
                 break;
+            case STOP:
+            	Robot.driveSubsystem.stop();
+            	break;
         }
     }
 
