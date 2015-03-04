@@ -80,7 +80,7 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void set(double value) {
-        if (value > 0.0) { motor.set(value * scale * 0.1); }
+        if (value > 0.0) { motor.set(value * scale * 0.5); }
         else { motor.set(value * scale); }
         motorFollower.set(motor.getDeviceID());
     }
