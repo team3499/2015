@@ -2,7 +2,6 @@ package org.usfirst.frc.team3499.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-import org.usfirst.frc.team3499.robot.Robot;
 import org.usfirst.frc.team3499.robot.commands.ZeroLiftEncoderCommand;
 import org.usfirst.frc.team3499.robot.commands.IdleLiftCommand;
 import org.usfirst.frc.team3499.robot.commands.DriveAutoCommand;
@@ -13,8 +12,6 @@ import org.usfirst.frc.team3499.robot.commands.DriveAutoCommand;
 public class AutonomousCommandGroup extends CommandGroup {
 
     public  AutonomousCommandGroup() {
-    	requires(Robot.liftSubsystem);
-    	requires(Robot.rampProximitySubsystem);
         addSequential(new ZeroLiftEncoderCommand());
         addSequential(new IdleLiftCommand());
         addSequential(new DriveAutoCommand());
