@@ -45,6 +45,10 @@ public class DriveSubsystem extends Subsystem {
         motor.setExpiration(0.100);
     }
 
+    public void enableDriveScaling(boolean enable) {
+        drive.enableDriveScaling(enable);
+    }
+
     public Drive.Mode getMode() {
         return drive.mode;
     }

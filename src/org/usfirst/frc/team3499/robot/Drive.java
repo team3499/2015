@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 
+import org.usfirst.frc.team3499.robot.Robot;
+
 /**
  * Extends RobotDrive to allow crawl and ramp control
  */
@@ -24,12 +26,14 @@ public class Drive extends RobotDrive {
     public static boolean throttleLeftActive  = false;  // is currently throttling input
     public static boolean throttleRightActive = false;  // is currently throttling input
     public static double derateLeft  = 1.0;             // amount to derate the left motors
-    public static double derateRight = 1.0;             // amount to derate the right motors
+    public static double derateRight = 0.8;             // amount to derate the right motors
     private static Timer timer = new Timer();
 
     private double rampedLastSampleTime;
     private double rampedLeftOutput;
     private double rampedRightOutput;
+
+    private boolean enableDriveScaling;
 
     public Drive(SpeedController frontLeftMotor,
                  SpeedController rearLeftMotor,
@@ -38,14 +42,21 @@ public class Drive extends RobotDrive {
         super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
         timer.start();
         updateRampSample(0.0, 0.0);
+        enableDriveScaling(true);
+    }
+
+    public void enableDriveScaling(boolean enable) {
+        enableDriveScaling = enable;
     }
 
     public void setLeftRightMotorOutputs(double leftOutput, double rightOutput) {
 
         switch (mode) {
             case NORMAL:
-                leftOutput  = leftOutput * OI.getDriveScale();
-                rightOutput = rightOutput * OI.getDriveScale();
+                if (enableDriveScaling) {  // don't apply drive scale during auto
+                    leftOutput  = leftOutput * OI.getDriveScale();
+                    rightOutput = rightOutput * OI.getDriveScale();
+                }
                 break;
             case CRAWL:
                 leftOutput  = leftOutput * crawlPercent;

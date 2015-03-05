@@ -20,7 +20,7 @@ public class DriveTeleopCommand extends Command {
     }
 
     protected void initialize() {
-
+        Robot.driveSubsystem.enableDriveScaling(true);
     }
 
     protected void execute() {

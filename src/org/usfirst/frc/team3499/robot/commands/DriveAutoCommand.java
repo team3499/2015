@@ -33,6 +33,7 @@ public class DriveAutoCommand extends Command {
         timer.reset();
         timer.start();
         state = State.START;
+        Robot.driveSubsystem.enableDriveScaling(false);
     }
 
     protected void execute() {
