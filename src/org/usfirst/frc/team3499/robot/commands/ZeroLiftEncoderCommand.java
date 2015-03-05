@@ -24,11 +24,15 @@ public class ZeroLiftEncoderCommand extends Command {
     }
 
     protected void execute() {
-        Robot.liftSubsystem.set(1.0);
+        Robot.liftSubsystem.set(0.5);
     }
 
     protected boolean isFinished() {
-        return Robot.liftSubsystem.isAtBottom() || timer.hasPeriodPassed(timeout);
+        if (Robot.liftSubsystem.isAtBottom() || timer.hasPeriodPassed(timeout)) {
+            Robot.liftSubsystem.enableSoftLimits(Robot.liftSubsystem.isAtBottom());
+            return true;
+        }
+        return false;
     }
 
     protected void end() {

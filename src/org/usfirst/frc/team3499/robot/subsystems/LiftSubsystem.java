@@ -21,6 +21,10 @@ public class LiftSubsystem extends Subsystem {
 
     public static double scale = 1000.0;   // 1000 ticks per 10ms max
 
+    public static int[]  softLimit = { 10, 10000 };
+
+    private double holdPosition = 0.0;
+
     CANTalon motor         = new CANTalon(RobotMap.liftMotorMasterCanId);
     CANTalon motorFollower = new CANTalon(RobotMap.liftMotorFollowerCanId);
 
@@ -55,12 +59,35 @@ public class LiftSubsystem extends Subsystem {
         motorFollower.setPID(P, I, D);
     }
 
+    public void enableSoftLimits(boolean enable) {
+        motor.setForwardSoftLimit(softLimit[0]);
+        motor.setReverseSoftLimit(softLimit[1]);
+        motor.enableForwardSoftLimit(enable);
+        motor.enableReverseSoftLimit(enable);
+    }
+
     public boolean isAtBottom() {
         return motor.isFwdLimitSwitchClosed();
     }
 
+    public boolean isNearBottom() {
+        return motor.getPosition() < (getBottomSoftLimit() + 1000.0);
+    }
+
+    public double getBottomSoftLimit() {
+        return (double)softLimit[0];
+    }
+
     public boolean isAtTop() {
         return motor.isRevLimitSwitchClosed();
+    }
+
+    public boolean isNearTop() {
+        return motor.getPosition() > (getTopSoftLimit() - 1000.0);
+    }
+
+    public double getTopSoftLimit() {
+        return (double)softLimit[1];
     }
 
     public int getEncPosition() {
@@ -80,9 +107,29 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void set(double value) {
-        if (value > 0.0) { motor.set(value * scale * 0.1); }
-        else { motor.set(value * scale); }
+        cancelHoldPosition();
+        double scaledValue = value * scale;
+        if (value > 0.0) {  // down
+            if (isNearBottom() && scaledValue > 0.4) { scaledValue = 0.4; }
+            motor.set(scaledValue * 0.5);
+        } else {            // up
+            if (isNearTop() && scaledValue < -0.4) { scaledValue = -0.4; }
+            motor.set(scaledValue);
+        }
         motorFollower.set(motor.getDeviceID());
+    }
+
+    // This method will attempt to hold the current position.  It combats the
+    // tendancy of the lift to drop under the weight of totes.
+    public void holdPosition() {
+        if (holdPosition < 0.1) { holdPosition = motor.getPosition(); }
+
+        if (motor.getPosition() < holdPosition) { motor.set(-0.2); }
+        else { motor.set(0.0); }
+    }
+
+    public void cancelHoldPosition() {
+        holdPosition = 0.0;
     }
 
     public void stop() {
@@ -102,4 +149,3 @@ public class LiftSubsystem extends Subsystem {
         solenoidPush.set(push);
     }
 }
-

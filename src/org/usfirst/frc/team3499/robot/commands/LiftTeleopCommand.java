@@ -19,7 +19,7 @@ public class LiftTeleopCommand extends Command {
     }
 
     protected void initialize() {
-    	
+
     }
 
     protected void execute() {
@@ -27,7 +27,10 @@ public class LiftTeleopCommand extends Command {
         double scale = OI.getLiftScale();
         boolean drop = OI.isDropBox();
         boolean push = OI.isPushBox();
-        Robot.liftSubsystem.set(move * scale);
+
+        if (move < 0.1 && move > -0.1) { Robot.liftSubsystem.holdPosition(); }
+        else { Robot.liftSubsystem.set(move * scale); }
+
         Robot.liftSubsystem.open(drop);
         Robot.liftSubsystem.push(push);
     }

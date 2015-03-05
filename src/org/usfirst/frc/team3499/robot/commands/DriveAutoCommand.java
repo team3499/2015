@@ -33,13 +33,14 @@ public class DriveAutoCommand extends Command {
         timer.reset();
         timer.start();
         state = State.START;
+        Robot.driveSubsystem.enableDriveScaling(false);
     }
 
     protected void execute() {
         switch (state) {
             case START:
                 if (Metrics.autoSimple && !Metrics.autoStandard) {
-                    // Dashboard selecting simple auto routine (drive forward)
+                    // Dashboard selecting simple auto routine (drive forard)
                     state = State.FORWARD;
                 } else {
                     // Dashboard selecting standard auto routine
@@ -77,8 +78,8 @@ public class DriveAutoCommand extends Command {
                 }
                 break;
             case STOP:
-            	Robot.driveSubsystem.stop();
-            	break;
+                Robot.driveSubsystem.stop();
+                break;
         }
     }
 

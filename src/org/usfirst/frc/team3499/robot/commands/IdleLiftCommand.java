@@ -15,8 +15,8 @@ public class IdleLiftCommand extends Command {
 
     Timer timer = new Timer();
     double timeout = 4.0;
-    double speed   = -0.2;  // TEMPORARY! TODO - Change back to -0.5 to -1.0
-    public static int idlePosition = 1000;
+    double speed   = -0.5;
+    public static int idlePosition = 3000;
 
     public IdleLiftCommand() {
         requires(Robot.liftSubsystem);
