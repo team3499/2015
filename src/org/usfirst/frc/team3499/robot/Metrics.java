@@ -34,12 +34,12 @@ public class Metrics {
     public static double   autoSpeedBack             = 0.5;
     public static double   autoSpeedTurn             = 0.5;
     public static double   autoSpeedForward          = 0.5;
-    public static double   autoSpeedRamp             = 0.2;
-    public static double   autoTimerBack             = 0.3;
-    public static double   autoTimerTurn             = 0.5;
-    public static double   autoTimerForward          = 3.0;
+    public static double   autoSpeedRamp             = 0.5;
+    public static double   autoTimerBack             = 0.6;
+    public static double   autoTimerTurn             = 2.0;
+    public static double   autoTimerForward          = 5.0;
     public static double   derateLeftDrive           = 1.0;
-    public static double   derateRightDrive          = 1.0;
+    public static double   derateRightDrive          = 0.8;
 
     public static void read() {
         readRamp();
