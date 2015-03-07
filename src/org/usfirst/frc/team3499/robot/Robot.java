@@ -27,6 +27,7 @@ public class Robot extends IterativeRobot {
     public static ToteProximitySubsystem toteProximitySubsystem;
     public static RampProximitySubsystem rampProximitySubsystem;
     public static DashboardSubsystem     dashboardSubsystem;
+    public static CompressorSubsystem    compressorSubsystem;
 
     // Operator Interface
     public static OI oi;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot {
         toteProximitySubsystem = new ToteProximitySubsystem();
         rampProximitySubsystem = new RampProximitySubsystem();
         dashboardSubsystem     = new DashboardSubsystem();
+        compressorSubsystem    = new CompressorSubsystem();
 
         oi = new OI();
 

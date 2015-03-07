@@ -24,6 +24,7 @@ public class OI {
     
     public static Button pReleaseButton   = new JoystickButton(liftStick, RobotMap.TRIGGER);
     public static Button pPushButton      = new JoystickButton(liftStick, RobotMap.HAT3);
+    public static Button pCompButton      = new JoystickButton(liftStick, RobotMap.HAT2);
 
     public static double getDriveMove() {
         return -driveStick.getY();
@@ -67,6 +68,10 @@ public class OI {
     
     public static boolean isPushBox() {
     	return pPushButton.get();
+    }
+
+    public static boolean isCompEnable() {
+       return pCompButton.get();
     }
 
     //// CREATING BUTTONS
