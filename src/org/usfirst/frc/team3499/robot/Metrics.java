@@ -31,11 +31,11 @@ public class Metrics {
     public static double   liftMotorD                = 0.0;
     public static boolean  autoSimple                = false;
     public static boolean  autoStandard              = true;
-    public static double   autoSpeedBack             = 0.5;
-    public static double   autoSpeedTurn             = 0.5;
-    public static double   autoSpeedForward          = 0.5;
-    public static double   autoSpeedRamp             = 0.5;
-    public static double   autoTimerBack             = 0.6;
+    public static double   autoSpeedBack             = 0.7;
+    public static double   autoSpeedTurn             = -0.7;
+    public static double   autoSpeedForward          = 0.7;
+    public static double   autoSpeedRamp             = 0.7;
+    public static double   autoTimerBack             = 0.5;
     public static double   autoTimerTurn             = 2.0;
     public static double   autoTimerForward          = 5.0;
     public static double   derateLeftDrive           = 1.0;
