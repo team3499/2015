@@ -65,13 +65,13 @@ public class DriveAutoCommand extends Command {
                 }
                 break;
             case FORWARD:
-                if (Robot.rampProximitySubsystem.getLeft() || Robot.rampProximitySubsystem.getRight()) {
-                    Robot.driveSubsystem.set(Metrics.autoSpeedRamp, 0.0);
-                    timer.reset();
-                    timer.start();
-                } else {
+                // if (Robot.rampProximitySubsystem.getLeft() || Robot.rampProximitySubsystem.getRight()) {
+                //     Robot.driveSubsystem.set(Metrics.autoSpeedRamp, 0.0);
+                //     timer.reset();
+                //     timer.start();
+                // } else {
                     Robot.driveSubsystem.set(Metrics.autoSpeedForward, 0.0);
-                }
+                // }
                 if (timer.hasPeriodPassed(Metrics.autoTimerForward)) {
                     state = State.STOP;
                 }
