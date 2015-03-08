@@ -37,7 +37,7 @@ public class Metrics {
     public static double   autoSpeedRamp             = 0.7;
     public static double   autoTimerBack             = 0.5;
     public static double   autoTimerTurn             = 1.7;
-    public static double   autoTimerForward          = 6.0;
+    public static double   autoTimerForward          = 5.25;
     public static double   derateLeftDrive           = 1.0;
     public static double   derateRightDrive          = 0.85;
 
