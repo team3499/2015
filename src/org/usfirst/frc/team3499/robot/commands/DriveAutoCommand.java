@@ -38,12 +38,15 @@ public class DriveAutoCommand extends Command {
     protected void execute() {
         switch (state) {
             case START:
-                if (Metrics.autoSimple && !Metrics.autoStandard) {
-                    // Dashboard selecting simple auto routine (drive forard)
-                    state = State.FORWARD;
-                } else {
+                if (Metrics.autoDisable) {
+                    // Dashboard selecting auto disable
+                    state = State.STOP;
+                } else if (Metrics.autoStandard) {
                     // Dashboard selecting standard auto routine
                     state = State.BACKING;
+                } else {
+                    // Dashboard defaulting to simple auto routine
+                    state = State.FORWARD;
                 }
                 timer.reset();
                 timer.start();

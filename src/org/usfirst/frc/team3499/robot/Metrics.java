@@ -29,7 +29,7 @@ public class Metrics {
     public static double   liftMotorP                = 0.0;
     public static double   liftMotorI                = 0.0;
     public static double   liftMotorD                = 0.0;
-    public static boolean  autoSimple                = false;
+    public static boolean  autoDisable               = false;
     public static boolean  autoStandard              = true;
     public static double   autoSpeedBack             = 0.7;
     public static double   autoSpeedTurn             = -0.7;

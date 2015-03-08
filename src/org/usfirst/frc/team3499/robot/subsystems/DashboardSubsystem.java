@@ -25,8 +25,8 @@ public class DashboardSubsystem extends Subsystem {
         v = SmartDashboard.getNumber("Lift D", -1001.0);
         if (v < -1000.0) { SmartDashboard.putNumber("Lift D", Robot.liftSubsystem.D); }
 
-        boolean b = SmartDashboard.getBoolean("Simple Auto", Metrics.autoSimple);
-        SmartDashboard.putBoolean("Simple Auto", b);
+        boolean b = SmartDashboard.getBoolean("Disable Auto", Metrics.autoDisable);
+        SmartDashboard.putBoolean("Disable Auto", b);
         b = SmartDashboard.getBoolean("Standard Auto", Metrics.autoStandard);
         SmartDashboard.putBoolean("Standard Auto", b);
 
@@ -79,7 +79,7 @@ public class DashboardSubsystem extends Subsystem {
         Metrics.liftMotorI = SmartDashboard.getNumber("Lift I", Robot.liftSubsystem.I);
         Metrics.liftMotorD = SmartDashboard.getNumber("Lift D", Robot.liftSubsystem.D);
 
-        Metrics.autoSimple   = SmartDashboard.getBoolean("Simple Auto", Metrics.autoSimple);
+        Metrics.autoDisable  = SmartDashboard.getBoolean("Disable Auto", Metrics.autoDisable);
         Metrics.autoStandard = SmartDashboard.getBoolean("Standard Auto", Metrics.autoStandard);
 
         Metrics.autoSpeedBack    = SmartDashboard.getNumber("Auto Speed Back", Metrics.autoSpeedBack);
