@@ -55,7 +55,7 @@ public class OI {
     }
 
     public static double getLiftMove() {
-        return liftStick.getY();
+        return -liftStick.getY();
     }
 
     public static double getLiftScale() {
