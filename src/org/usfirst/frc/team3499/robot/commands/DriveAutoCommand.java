@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 import org.usfirst.frc.team3499.robot.Robot;
 import org.usfirst.frc.team3499.robot.Metrics;
+import org.usfirst.frc.team3499.robot.Drive.Mode;
 
 /**
  * Drives the robot into the auto zone, either turning 90 degrees with
@@ -60,7 +61,7 @@ public class DriveAutoCommand extends Command {
                 }
                 break;
             case TURNING:
-                Robot.driveSubsystem.set(0.0, Metrics.autoSpeedTurn);
+                Robot.driveSubsystem.set(0.0, Metrics.autoSpeedTurn, Mode.RAW);
                 if (timer.hasPeriodPassed(Metrics.autoTimerTurn)) {
                     state = State.FORWARD;
                     timer.reset();
@@ -73,7 +74,7 @@ public class DriveAutoCommand extends Command {
                 //     timer.reset();
                 //     timer.start();
                 // } else {
-                    Robot.driveSubsystem.set(Metrics.autoSpeedForward, 0.0);
+                    Robot.driveSubsystem.set(Metrics.autoSpeedForward, 0.0, Mode.RAW);
                 // }
                 if (timer.hasPeriodPassed(Metrics.autoTimerForward)) {
                     state = State.STOP;

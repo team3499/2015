@@ -5,6 +5,7 @@ import java.lang.Math;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Extends RobotDrive to allow crawl and ramp control
@@ -59,7 +60,8 @@ public class Drive extends RobotDrive {
                 break;
             case RAW:
                 updateRampSample(leftOutput, rightOutput);
-                super.setLeftRightMotorOutputs(leftOutput, rightOutput);
+                super.setLeftRightMotorOutputs(leftOutput, rightOutput*0.75);
+                //super.setLeftRightMotorOutputs(leftOutput, rightOutput);
                 return;
         }
 
@@ -90,7 +92,8 @@ public class Drive extends RobotDrive {
         rightOutput *= derateRight;
 
         updateRampSample(now, leftOutput, rightOutput);
-        super.setLeftRightMotorOutputs(leftOutput, rightOutput);
+        super.setLeftRightMotorOutputs(leftOutput, rightOutput*0.75);
+        //super.setLeftRightMotorOutputs(leftOutput, rightOutput);
     }
 
     private void updateRampSample(double leftOutput, double rightOutput) {
@@ -98,6 +101,10 @@ public class Drive extends RobotDrive {
     }
 
     private void updateRampSample(double time, double leftOutput, double rightOutput) {
+        // DEBUG Drive Output
+        SmartDashboard.putDouble("DEBUG LEFT", leftOutput);
+        SmartDashboard.putDouble("DEBUG RIGHT", rightOutput);
+
         rampedLastSampleTime = time;
         rampedLeftOutput     = leftOutput;
         rampedRightOutput    = rightOutput;

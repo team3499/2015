@@ -35,11 +35,11 @@ public class OI {
     }
 
     public static Mode getDriveMode() {
-        if (driveRawLButton.get() || driveRawRButton.get()) { return Mode.RAW; }
+        if (driveRawLButton.get() || driveRawRButton.get()) { return Mode.NORMAL; }
         if (driveRampLButton.get() || driveRampRButton.get()) { return Mode.RAMP; }
         if (driveCrawlButton.get()) { return Mode.CRAWL; }
 
-        return Mode.NORMAL;
+        return Mode.RAW;
     }
 
     public static double getDriveScale() {
