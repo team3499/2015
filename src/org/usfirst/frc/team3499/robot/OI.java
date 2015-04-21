@@ -17,6 +17,7 @@ public class OI {
     public static Joystick liftStick  = new Joystick(RobotMap.liftStickPort);
 
     public static Button driveCrawlButton = new JoystickButton(driveStick, RobotMap.TRIGGER);
+    public static Button driveInvertButton = new JoystickButton(driveStick, RobotMap.HAT3);
     public static Button driveRampLButton = new JoystickButton(driveStick, RobotMap.HAT4);
     public static Button driveRampRButton = new JoystickButton(driveStick, RobotMap.HAT5);
     public static Button driveRawLButton  = new JoystickButton(driveStick, RobotMap.BASE6);
@@ -27,6 +28,7 @@ public class OI {
     public static Button pCompButton      = new JoystickButton(liftStick, RobotMap.HAT2);
 
     public static double getDriveMove() {
+        if (driveInvertButton.get()) { return driveStick.getY(); }
         return -driveStick.getY();
     }
 
